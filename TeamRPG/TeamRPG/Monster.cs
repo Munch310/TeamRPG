@@ -444,6 +444,7 @@ namespace TeamRPG
             }
             else if (MainProgram.player.skills[selected - 1].Name == "썬더 볼트")
             {
+                Console.SetCursorPosition(3, 27);
                 Console.WriteLine("썬더 볼트 시전!");
                 for (int i = 0; i < monstersList.Count; i++)
                 {
@@ -457,7 +458,11 @@ namespace TeamRPG
             }
             else if (MainProgram.player.skills[selected - 1].Name == "힐")
             {
+                Console.Clear();
+                UI.DisplayGameUI();
+                Console.SetCursorPosition(3, 10);
                 Console.WriteLine("힐 시전!");
+                Console.SetCursorPosition(3, 12);
                 Console.Write($"Hp {MainProgram.player.CurrentHp}");
                 MainProgram.player.CurrentHp += 30;
                 if (MainProgram.player.CurrentHp > MainProgram.player.Hp)
