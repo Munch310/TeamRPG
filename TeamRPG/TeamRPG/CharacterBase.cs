@@ -35,11 +35,11 @@ namespace TeamRPG
             int randDmg = 0;
             if (atk % 10 != 0)
             {
-                randDmg = randDmg / 10 + 1;
+                randDmg = atk / 10 + 1;
             }
             else
             {
-                randDmg = randDmg / 10;
+                randDmg = atk / 10;
             }
             damage = rand.Next(atk - randDmg, atk + randDmg +1);
             return damage;
@@ -77,6 +77,27 @@ namespace TeamRPG
         }
         // ---------- Song ---------------
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amount">획득한 경험치 양</param>
+        public void GetExp(long amount)
+        {
+            Exp += amount;
+
+            // 필요 경험치: 레벨 * 1000 
+            long needExp = Lv * 1000;
+
+            while(Exp >= needExp)
+            {
+                LvUp();
+
+                Exp -= 1000;
+            }
+        }
+
+        // -----
+        
     }
 
     class Minion : CharacterBase
