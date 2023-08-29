@@ -397,7 +397,6 @@ namespace TeamRPG
                 Console.WriteLine("아무 키나 눌러 돌아가기");
                 Console.ReadLine();
                 FightInfo();
-
             }
             else if (MainProgram.player.skills[selected - 1].Name == "알파 스트라이크")
             {
@@ -440,6 +439,32 @@ namespace TeamRPG
                     PlayerAttack(temp[firstTarget - 1] + 1, MainProgram.player.Atk);
                     PlayerAttack(temp[secondTarget - 1] + 1, MainProgram.player.Atk);
                 }
+                // 마나 소모
+                MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
+            }
+            else if (MainProgram.player.skills[selected - 1].Name == "썬더 볼트")
+            {
+                Console.WriteLine("썬더 볼트 시전!");
+                for (int i = 0; i < monstersList.Count; i++)
+                {
+                    if (monstersList[i].CurrentHp != 0)
+                    {
+                        PlayerAttack(i+1, MainProgram.player.Atk);
+                    }
+                }
+                // 마나 소모
+                MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
+            }
+            else if (MainProgram.player.skills[selected - 1].Name == "힐")
+            {
+                Console.WriteLine("힐 시전!");
+                Console.Write($"Hp {MainProgram.player.CurrentHp}");
+                MainProgram.player.CurrentHp += 30;
+                if (MainProgram.player.CurrentHp > MainProgram.player.Hp)
+                {
+                    MainProgram.player.CurrentHp = MainProgram.player.Hp;
+                }
+                Console.WriteLine($" -> {MainProgram.player.CurrentHp}");
                 // 마나 소모
                 MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
             }
