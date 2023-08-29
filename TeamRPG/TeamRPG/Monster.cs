@@ -78,12 +78,12 @@ namespace TeamRPG
             Console.WriteLine("원하시는 행동을 입력해주세요.");
             Console.WriteLine();
 
-            int input = Utility.CheckValidInput(1, 1);
+            int input = Utility.CheckValidInput(0, 2);
             if (input == 1)
             {
                 Console.WriteLine("공격 창으로 이동합니다.");
                 Thread.Sleep(300);
-                BattleTime();
+                BattleNormal();
             }
             // ---------- Song 스킬 창 추가---------------
             else if (input == 2)
@@ -110,7 +110,7 @@ namespace TeamRPG
             }
         }
 
-        public static void BattleTime() // 스킬을 사용하지 않은 기본 공격
+        public static void BattleNormal() // 스킬을 사용하지 않은 기본 공격
         {
             Console.Clear();
             Console.WriteLine("Battle!");
@@ -179,7 +179,7 @@ namespace TeamRPG
         }
 
         // --------------------------------------------------------------------------
-        public static void PlayerPhase() //플레이어 기본공격패턴
+        public static void PlayerPhase() // 플레이어 페이즈
         {
             if (CheckAllMonstersDefeated())
             {
@@ -210,6 +210,7 @@ namespace TeamRPG
             }
         }
 
+        // 플레이어 공격 메서드 구현
         public static void PlayerAttack(int selected, int damage)
         {
             if (monstersList[selected - 1].CurrentHp > 0)
@@ -260,7 +261,7 @@ namespace TeamRPG
         }
 
         // --- Song 스킬을 이용한 전투 추가 ---
-        public static void BattleSkill()
+        public static void BattleSkill() // 스킬을 사용하여 전투
         {
             Console.Clear();
             Console.WriteLine("Battle!");
@@ -281,10 +282,8 @@ namespace TeamRPG
             sb.Append($"{MainProgram.player.Name} {MainProgram.player.Job}");
             sb.Append('\n');
             sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
-            // ---------- Song ---------------
             sb.Append('\n');
             sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
-            // ---------- Song ---------------
             Console.WriteLine(sb);
             sb.Clear();
 
@@ -299,7 +298,7 @@ namespace TeamRPG
             Console.WriteLine("원하시는 행동을 입력해주세요");
 
 
-            int input = Utility.CheckValidInput(0, monstersList.Count);
+            int input = Utility.CheckValidInput(0, MainProgram.player.skills.Count);
 
             if (input == 0)
             {
@@ -492,7 +491,7 @@ namespace TeamRPG
                 Console.WriteLine($"==============================================================");
                 Console.WriteLine();
                 Thread.Sleep(500);
-                BattleTime();
+                BattleNormal();
             }
         }
     }
