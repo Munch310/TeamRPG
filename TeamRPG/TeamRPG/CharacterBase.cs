@@ -18,6 +18,11 @@ namespace TeamRPG
         public int Hp { get; set; }
         public int CurrentHp { get; set; }
 
+        // ---------- Song ---------------
+        // ---------- Moon ---------------
+        // Beta Commit test
+        public int Mp { get; set; }
+
         public CharacterBase(string name, int atk, int lv, int hp, string isDead)
         {
             Name = name;
@@ -48,11 +53,16 @@ namespace TeamRPG
     public class Character : CharacterBase
     {
         public string Job { get; }
-        
-        public int Def { get; }
+
+        // 레벨업을 위해 set을 추가함
+        public int Def { get; set; }
         
         
         public int Gold { get; set; }
+
+        // ----- 김형수 -----
+        public long Exp {  get; set; }
+        // -----
 
         public Character(string name, string job, int lv, int atk, int def, int hp, int gold, string isDead) : base(name, atk, lv, hp, isDead)
         {
@@ -61,6 +71,19 @@ namespace TeamRPG
             CurrentHp = hp;
             Gold = gold;
         }
+
+        // ----- 김형수 -----
+
+        public void LvUp()
+        {
+            Lv++;
+            Atk += 1;
+            Def += 1;
+            Hp += 10;
+        }
+
+        // -----
+        
     }
 
     class Minion : CharacterBase

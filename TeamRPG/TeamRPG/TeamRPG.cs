@@ -21,6 +21,12 @@ namespace TeamRPG
 
         static void Main(string[] args)
         {
+            // ----- 김형수 -----
+            // 획득한 경험치. earned;획득한
+            long earnedExp = 0;
+            // -----
+
+
             GameDataSetting();
             DisplayGameIntro();
         }
