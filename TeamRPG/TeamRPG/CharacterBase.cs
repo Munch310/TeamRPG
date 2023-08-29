@@ -50,9 +50,13 @@ namespace TeamRPG
     {
         public string Job { get; }
         
-        public int Def { get; }
+        public int Def { get; set; }
         
         public int Gold { get; set; }
+
+        // ----- 김형수 -----
+        public long Exp { get; set; }
+        // -----
 
         // ---------- Song ---------------
         // Mp 구현
@@ -81,6 +85,17 @@ namespace TeamRPG
         /// 
         /// </summary>
         /// <param name="amount">획득한 경험치 양</param>
+        /// 
+        // ----- 김형수 -----
+
+        public void LvUp()
+        {
+            Lv++;
+            Atk += 1;
+            Def += 1;
+            Hp += 10;
+        }
+
         public void GetExp(long amount)
         {
             Exp += amount;
