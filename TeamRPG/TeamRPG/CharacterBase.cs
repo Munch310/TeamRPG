@@ -18,10 +18,6 @@ namespace TeamRPG
         public int Hp { get; set; }
         public int CurrentHp { get; set; }
 
-        // ---------- Song ---------------
-        // ---------- Moon ---------------
-        // Beta Commit test
-        public int Mp { get; set; }
 
         public CharacterBase(string name, int atk, int lv, int hp, string isDead)
         {
@@ -56,15 +52,22 @@ namespace TeamRPG
         
         public int Def { get; }
         
-        
         public int Gold { get; set; }
 
-        public Character(string name, string job, int lv, int atk, int def, int hp, int gold, string isDead) : base(name, atk, lv, hp, isDead)
+        // ---------- Song ---------------
+        // Mp 구현
+        public int Mp { get; set; }
+        public int CurrentMp { get; set; }
+        // ---------- Song ---------------
+
+        public Character(string name, string job, int lv, int atk, int def, int hp, int gold, string isDead, int mp) : base(name, atk, lv, hp, isDead)
         {
             Job = job;
             Def = def;
             CurrentHp = hp;
             Gold = gold;
+            CurrentMp = mp;
+            Mp = mp;
         }
     }
 

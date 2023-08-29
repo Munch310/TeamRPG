@@ -45,11 +45,18 @@ namespace TeamRPG
             sb.Append($"{MainProgram.player.Name} {MainProgram.player.Job}");
             sb.Append('\n');
             sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
+            // ---------- Song ---------------
+            sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
+            // ---------- Song ---------------
             Console.WriteLine(sb);
             sb.Clear();
 
             Console.WriteLine();
             Console.WriteLine("1. 공격");
+            Console.WriteLine();
+            // ---------- Song ---------------
+            Console.WriteLine("2. 스킬");
+            // ---------- Song ---------------
             Console.WriteLine();
             Console.WriteLine("0. 메인화면으로");
             Console.WriteLine();
@@ -59,11 +66,19 @@ namespace TeamRPG
             int input = Utility.CheckValidInput(1, 1);
             if (input == 1)
             {
-                Console.WriteLine("전투 창으로 이동합니다.");
+                Console.WriteLine("공격 창으로 이동합니다.");
                 Thread.Sleep(300);
                 BattleTime();
             }
-            if (input == 0)
+            // ---------- Song ---------------
+            else if (input == 2)
+            {
+                Console.WriteLine("스킬 창으로 이동합니다.");
+                Thread.Sleep(300);
+                BattleSkill();
+            }
+            // ---------- Song ---------------
+            else if (input == 0)
             {
                 Console.WriteLine();
                 Console.WriteLine("메인화면으로 돌아갑니다..");
@@ -78,6 +93,10 @@ namespace TeamRPG
                 Thread.Sleep(300);
                 FightInfo();
             }
+        }
+        public static void BattleSkill()
+        {
+
         }
 
         public static void BattleTime()
