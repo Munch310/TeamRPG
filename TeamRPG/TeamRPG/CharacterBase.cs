@@ -76,9 +76,8 @@ namespace TeamRPG
         public void LvUp()
         {
             Lv++;
-            Atk += 1;
+            Atk += 0.5f;
             Def += 1;
-            Hp += 10;
         }
 
         /// <summary>
