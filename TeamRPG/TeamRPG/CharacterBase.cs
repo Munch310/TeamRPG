@@ -55,7 +55,10 @@ namespace TeamRPG
         public int Gold { get; set; }
 
         // ----- 김형수 -----
-        public long Exp { get; set; }
+        public int Exp { get; set; }
+
+        // 필요 경험치
+        public int? needExp { get; set; }
         // -----
 
         // ---------- Song ---------------
@@ -81,11 +84,7 @@ namespace TeamRPG
         }
         // ---------- Song ---------------
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="amount">획득한 경험치 양</param>
-        /// 
+        
         // ----- 김형수 -----
 
         public void LvUp()
@@ -93,23 +92,62 @@ namespace TeamRPG
             Lv++;
             Atk += 1;
             Def += 1;
-            Hp += 10;
         }
 
-        public void GetExp(long amount)
+        /// <summary>
+        /// 레벨 당 필요 경험치를 셋팅한다.
+        /// </summary>
+        /// <param name="lv"></param>
+        public void SetNeedExp(int lv)
         {
+            switch (lv)
+            {
+                case 1:
+                    needExp = 10;
+                    break;
+
+                case 2:
+                    needExp = 35;
+                    break;
+
+                case 3:
+                    needExp = 65;
+                    break;
+
+                case 4:
+                    needExp = 100;
+                    break;
+
+                default:
+                    needExp = null;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amount">획득한 경험치 양</param>
+        /// 
+        public void GetExp(int amount)
+        {
+            if (needExp == null)
+                Console.WriteLine("더 이상 경험치를 얻을 수 없습니다.");
+
             Exp += amount;
 
-            // 필요 경험치: 레벨 * 1000 
-            long needExp = Lv * 1000;
+            //// 필요 경험치: 레벨 * 1000 
+            //long needExp = Lv * 1000;
 
             while(Exp >= needExp)
             {
                 LvUp();
 
-                Exp -= 1000;
+                Exp = 0;
             }
         }
+
+        
 
         // -----
         
