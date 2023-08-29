@@ -34,7 +34,7 @@ namespace TeamRPG
         static void GameDataSetting()
         {
             // 캐릭터 정보 세팅
-            player = new Character("Chad", "전사", 1, 10, 5, 100, 1500, "Dead");
+            player = new Character("Chad", "전사", 1, 10, 5, 100, 1500, "Dead", 50);
 
             // 아이템 정보 세팅
 
@@ -122,6 +122,7 @@ namespace TeamRPG
             Console.WriteLine($"공격력 :{player.Atk}");
             Console.WriteLine($"방어력 : {player.Def}");
             Console.WriteLine($"체력 : {player.CurrentHp} / {player.Hp}");
+            Console.WriteLine($"마나 : {player.CurrentMp} / {player.Mp}");
             Console.WriteLine($"Gold : {player.Gold} G");
             Console.WriteLine();
             Console.WriteLine("0. 나가기");
