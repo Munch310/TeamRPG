@@ -34,11 +34,11 @@ namespace TeamRPG
             int randDmg = 0;
             if (atk % 10 != 0)
             {
-                randDmg = randDmg / 10 + 1;
+                randDmg = atk / 10 + 1;
             }
             else
             {
-                randDmg = randDmg / 10;
+                randDmg = atk / 10;
             }
             damage = rand.Next(atk - randDmg, atk + randDmg +1);
             return damage;
