@@ -19,6 +19,7 @@ namespace TeamRPG
         public int CurrentHp { get; set; }
 
         // ---------- Song ---------------
+        // ---------- Moon ---------------
         // Beta Commit test
         public int Mp { get; set; }
 
