@@ -60,6 +60,10 @@ namespace TeamRPG
         
         public int Gold { get; set; }
 
+        // ----- 김형수 -----
+        public long Exp {  get; set; }
+        // -----
+
         public Character(string name, string job, int lv, int atk, int def, int hp, int gold, string isDead) : base(name, atk, lv, hp, isDead)
         {
             Job = job;
