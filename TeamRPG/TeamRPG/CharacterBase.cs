@@ -13,7 +13,7 @@ namespace TeamRPG
 
         public string IsDead { get; set; }
         public string Name { get; set; }
-        public float Atk { get; set; }
+        public int Atk { get; set; }
         public int Lv { get; set; }
         public int Hp { get; set; }
         public int CurrentHp { get; set; }
@@ -91,8 +91,9 @@ namespace TeamRPG
         public void LvUp()
         {
             Lv++;
-            Atk += 0.5f;
+            Atk += 1;
             Def += 1;
+            Hp += 10;
         }
 
         public void GetExp(long amount)
