@@ -42,7 +42,14 @@ namespace TeamRPG
             {
                 sb.Append($"Lv.{monstersList[i].Lv} ");
                 sb.Append($"{monstersList[i].Name} ");
-                sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
+                if (monstersList[i].CurrentHp <= 0)
+                {
+                    sb.Append($"{monstersList[i].IsDead}" + "\n");
+                }
+                else
+                {
+                    sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
+                }
             }
             Console.WriteLine(sb);
             sb.Clear();
@@ -205,24 +212,23 @@ namespace TeamRPG
 
         public static void PlayerAttack(int selected, int damage)
         {
-            // 치명타 기능
-            Random rand = new Random();
-            int criticalEvasionCheck = rand.Next(20);
-            if (criticalEvasionCheck <= 3)
+            if (monstersList[selected - 1].CurrentHp > 0)
             {
-                damage *= 2;
-                Console.WriteLine("치명타가 터졌습니다!");
-            }
+                // 치명타 기능
+                Random rand = new Random();
+                int criticalEvasionCheck = rand.Next(20);
+                if (criticalEvasionCheck <= 3)
+                {
+                    damage *= 2;
+                    Console.WriteLine("치명타가 터졌습니다!");
+                }
 
-            // 회피할 경우 공격 스킵
-            if (criticalEvasionCheck > 17)
-            {
-                Console.WriteLine("적이 공격을 회피했습니다!");
-            }
-
-            else
-            {
-                if (monstersList[selected - 1].CurrentHp > 0)
+                // 회피할 경우 공격 스킵
+                if (criticalEvasionCheck > 17)
+                {
+                    Console.WriteLine("적이 공격을 회피했습니다!");
+                }
+                else
                 {
                     Console.WriteLine($"{MainProgram.player.Name} 의 공격!\n");
                     sb.Append($"Lv.{monstersList[selected - 1].Lv} ");
@@ -231,7 +237,6 @@ namespace TeamRPG
                     sb.Append($"Lv.{monstersList[selected - 1].Lv} {monstersList[selected - 1].Name}\n");
                     Console.Write(sb);
                     sb.Clear();
-                    // -------- 송명근 전투부분 수정 -------
                     if (monstersList[selected - 1].CurrentHp - damage <= 0)
                     {
 
@@ -243,14 +248,14 @@ namespace TeamRPG
                         Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].CurrentHp -= damage}");
                     }
                 }
-                else
-                {
-                    Console.WriteLine("이미 죽은 적입니다. 다른 적을 선택하세요");
-                    Console.WriteLine();
-                    Console.WriteLine($"==============================================================");
-                    Console.WriteLine();
-                    SelectMonster(damage);
-                }
+            }
+            else
+            {
+                Console.WriteLine("이미 죽은 적입니다. 다른 적을 선택하세요");
+                Console.WriteLine();
+                Console.WriteLine($"==============================================================");
+                Console.WriteLine();
+                SelectMonster(damage);
             }
         }
 
@@ -312,6 +317,7 @@ namespace TeamRPG
             }
         }
 
+        // 스킬 실행 메서드
         public static void PlayerSkill(int selected)
         {
             if (MainProgram.player.CurrentMp < MainProgram.player.skills[selected - 1].MpConsume)
