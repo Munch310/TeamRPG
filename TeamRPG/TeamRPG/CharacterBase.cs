@@ -70,7 +70,7 @@ namespace TeamRPG
 
         // ----- 김형수 -----
 
-        public void LvUp(/*int lv, int atk, int def, int hp*/)
+        public void LvUp()
         {
             Lv++;
             Atk += 1;
