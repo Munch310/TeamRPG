@@ -55,7 +55,10 @@ namespace TeamRPG
         public int Gold { get; set; }
 
         // ----- 김형수 -----
-        public long Exp { get; set; }
+        public int Exp { get; set; }
+
+        // 필요 경험치
+        public int needExp { get; set; }
         // -----
 
         // ---------- Song ---------------
@@ -96,7 +99,7 @@ namespace TeamRPG
             Hp += 10;
         }
 
-        public void GetExp(long amount)
+        public void GetExp(int amount)
         {
             Exp += amount;
 
