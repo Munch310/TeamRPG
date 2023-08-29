@@ -41,9 +41,6 @@ namespace TeamRPG
 
             //------정재호 몬스터/ 몬스터 리스트 정보세팅----------
             // 이름, 레벨,공격,체력            
-            //minion = new Monster("미니언", 5, 15, 2);
-            //canonMinion = new Monster("대포미니언", 8, 25, 5);
-            //voidMinion = new Monster("공허충", 9, 10, 3);
             monsters = new Monsters();
             minion = new Minion("미니언", 5, 15, 2, "Dead");
             canonMinion = new CanonMinion("대포미니언", 8, 25, 5,"Dead");
