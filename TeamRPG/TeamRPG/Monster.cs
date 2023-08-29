@@ -51,6 +51,7 @@ namespace TeamRPG
             sb.Append('\n');
             sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
             // ---------- Song ---------------
+            sb.Append('\n');
             sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
             // ---------- Song ---------------
             Console.WriteLine(sb);
