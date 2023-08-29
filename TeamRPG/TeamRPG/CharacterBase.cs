@@ -18,6 +18,11 @@ namespace TeamRPG
         public int Hp { get; set; }
         public int CurrentHp { get; set; }
 
+        // ---------- Song ---------------
+        // ---------- Moon ---------------
+        // Beta Commit test
+        public int Mp { get; set; }
+
         public CharacterBase(string name, int atk, int lv, int hp, string isDead)
         {
             Name = name;
@@ -34,11 +39,11 @@ namespace TeamRPG
             int randDmg = 0;
             if (atk % 10 != 0)
             {
-                randDmg = randDmg / 10 + 1;
+                randDmg = atk / 10 + 1;
             }
             else
             {
-                randDmg = randDmg / 10;
+                randDmg = atk / 10;
             }
             damage = rand.Next(atk - randDmg, atk + randDmg +1);
             return damage;
@@ -48,11 +53,16 @@ namespace TeamRPG
     public class Character : CharacterBase
     {
         public string Job { get; }
-        
-        public int Def { get; }
+
+        // 레벨업을 위해 set을 추가함
+        public int Def { get; set; }
         
         
         public int Gold { get; set; }
+
+        // ----- 김형수 -----
+        public long Exp {  get; set; }
+        // -----
 
         public Character(string name, string job, int lv, int atk, int def, int hp, int gold, string isDead) : base(name, atk, lv, hp, isDead)
         {
@@ -61,6 +71,38 @@ namespace TeamRPG
             CurrentHp = hp;
             Gold = gold;
         }
+
+        // ----- 김형수 -----
+
+        public void LvUp()
+        {
+            Lv++;
+            Atk += 1;
+            Def += 1;
+            Hp += 10;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amount">획득한 경험치 양</param>
+        public void GetExp(long amount)
+        {
+            Exp += amount;
+
+            // 필요 경험치: 레벨 * 1000 
+            long needExp = Lv * 1000;
+
+            while(Exp >= needExp)
+            {
+                LvUp();
+
+                Exp -= 1000;
+            }
+        }
+
+        // -----
+        
     }
 
     class Minion : CharacterBase

@@ -12,6 +12,7 @@ namespace TeamRPG
         public static Character player;
 
         public static Monsters monsters;
+        public static List<CharacterBase> monstersList; //Monsters Class의 monsterList가져옴
 
         public static Minion minion;
         public static CanonMinion canonMinion;
@@ -20,6 +21,12 @@ namespace TeamRPG
 
         static void Main(string[] args)
         {
+            // ----- 김형수 -----
+            // 획득한 경험치. earned;획득한
+            long earnedExp = 0;
+            // -----
+
+
             GameDataSetting();
             DisplayGameIntro();
         }
@@ -34,9 +41,6 @@ namespace TeamRPG
 
             //------정재호 몬스터/ 몬스터 리스트 정보세팅----------
             // 이름, 레벨,공격,체력            
-            //minion = new Monster("미니언", 5, 15, 2);
-            //canonMinion = new Monster("대포미니언", 8, 25, 5);
-            //voidMinion = new Monster("공허충", 9, 10, 3);
             monsters = new Monsters();
             minion = new Minion("미니언", 5, 15, 2, "Dead");
             canonMinion = new CanonMinion("대포미니언", 8, 25, 5,"Dead");
@@ -45,12 +49,18 @@ namespace TeamRPG
             monsters.AddMonster2List(minion);
             monsters.AddMonster2List(canonMinion);
             monsters.AddMonster2List(voidMinion);
+
+             monstersList = Monsters.GetMonstersList();
             //-------------------------------------
         }
 
         public static void DisplayGameIntro()
         {
             Console.Clear();
+            for (int i = 0; i < monstersList.Count; i++) //몬스터 체력 초기화
+            {
+                monstersList[i].CurrentHp = monstersList[i].Hp;
+            }
 
             Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
             Console.WriteLine("이곳에서 전전으로 들어가기 전 활동을 할 수 있습니다.");
@@ -111,7 +121,7 @@ namespace TeamRPG
             Console.WriteLine($"{player.Name}({player.Job})");
             Console.WriteLine($"공격력 :{player.Atk}");
             Console.WriteLine($"방어력 : {player.Def}");
-            Console.WriteLine($"체력 : {player.Hp}");
+            Console.WriteLine($"체력 : {player.CurrentHp} / {player.Hp}");
             Console.WriteLine($"Gold : {player.Gold} G");
             Console.WriteLine();
             Console.WriteLine("0. 나가기");
