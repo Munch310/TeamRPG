@@ -96,7 +96,6 @@ namespace TeamRPG
             Lv++;
             Atk += 1;
             Def += 1;
-            Hp += 10;
         }
 
         public void GetExp(int amount)
