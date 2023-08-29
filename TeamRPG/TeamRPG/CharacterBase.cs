@@ -53,8 +53,9 @@ namespace TeamRPG
     public class Character : CharacterBase
     {
         public string Job { get; }
-        
-        public int Def { get; }
+
+        // 레벨업을 위해 set을 추가함
+        public int Def { get; set; }
         
         
         public int Gold { get; set; }
@@ -66,6 +67,19 @@ namespace TeamRPG
             CurrentHp = hp;
             Gold = gold;
         }
+
+        // ----- 김형수 -----
+
+        public void LvUp(/*int lv, int atk, int def, int hp*/)
+        {
+            Lv++;
+            Atk += 1;
+            Def += 1;
+            Hp += 10;
+        }
+
+        // -----
+        
     }
 
     class Minion : CharacterBase
