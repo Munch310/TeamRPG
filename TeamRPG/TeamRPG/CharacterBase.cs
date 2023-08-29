@@ -49,9 +49,8 @@ namespace TeamRPG
     public class Character : CharacterBase
     {
         public string Job { get; }
-
-        // 레벨업을 위해 set을 추가함
-        public int Def { get; set; }
+        
+        public int Def { get; }
         
         public int Gold { get; set; }
 
@@ -63,11 +62,6 @@ namespace TeamRPG
         public List <Skill> skills { get; set; }
 
         public Character(string name, string job, int lv, int atk, int def, int hp, int gold, string isDead, int mp) : base(name, atk, lv, hp, isDead)
-        // ----- 김형수 -----
-        public long Exp {  get; set; }
-        // -----
-
-        public Character(string name, string job, int lv, int atk, int def, int hp, int gold, string isDead) : base(name, atk, lv, hp, isDead)
         {
             Job = job;
             Def = def;
@@ -83,19 +77,6 @@ namespace TeamRPG
         }
         // ---------- Song ---------------
 
-
-        // ----- 김형수 -----
-
-        public void LvUp()
-        {
-            Lv++;
-            Atk += 1;
-            Def += 1;
-            Hp += 10;
-        }
-
-        // -----
-        
     }
 
     class Minion : CharacterBase
