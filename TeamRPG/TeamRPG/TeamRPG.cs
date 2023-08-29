@@ -17,7 +17,7 @@ namespace TeamRPG
         public static Minion minion;
         public static CanonMinion canonMinion;
         public static VoidMinion voidMinion;
-        
+
 
         static void Main(string[] args)
         {
@@ -49,14 +49,14 @@ namespace TeamRPG
             // 이름, 레벨,공격,체력            
             monsters = new Monsters();
             minion = new Minion("미니언", 5, 15, 2, "Dead");
-            canonMinion = new CanonMinion("대포미니언", 8, 25, 5,"Dead");
+            canonMinion = new CanonMinion("대포미니언", 8, 25, 5, "Dead");
             voidMinion = new VoidMinion("공허충", 9, 10, 3, "Dead");
 
             monsters.AddMonster2List(minion);
             monsters.AddMonster2List(canonMinion);
             monsters.AddMonster2List(voidMinion);
 
-             monstersList = Monsters.GetMonstersList();
+            monstersList = Monsters.GetMonstersList();
             //-------------------------------------
         }
 

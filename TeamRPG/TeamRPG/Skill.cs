@@ -19,7 +19,7 @@ namespace TeamRPG
             Name = name;
             Description = description;
             MpConsume = mpConsume;
-        } 
+        }
     }
 
 }
