@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using TeamRPG;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TeamRPG
 {
@@ -50,7 +52,7 @@ namespace TeamRPG
             sb.Append($"{MainProgram.player.Name} {MainProgram.player.Job}");
             sb.Append('\n');
             sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
-            // ---------- Song ---------------
+            // ---------- Song Mp 추가 ---------------
             sb.Append('\n');
             sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
             // ---------- Song ---------------
@@ -60,7 +62,7 @@ namespace TeamRPG
             Console.WriteLine();
             Console.WriteLine("1. 공격");
             Console.WriteLine();
-            // ---------- Song ---------------
+            // ---------- Song 스킬추가 ---------------
             Console.WriteLine("2. 스킬");
             // ---------- Song ---------------
             Console.WriteLine();
@@ -76,7 +78,7 @@ namespace TeamRPG
                 Thread.Sleep(300);
                 BattleTime();
             }
-            // ---------- Song ---------------
+            // ---------- Song 스킬 창 추가---------------
             else if (input == 2)
             {
                 Console.WriteLine("스킬 창으로 이동합니다.");
@@ -100,63 +102,8 @@ namespace TeamRPG
                 FightInfo();
             }
         }
-        public static void BattleSkill()
-        {
-            Console.Clear();
-            Console.WriteLine("Battle!");
-            Console.WriteLine();
 
-            for (int i = 0; i < monstersList.Count; i++)
-            {
-                sb.Append($"{i + 1}. ");
-                sb.Append($"Lv.{monstersList[i].Lv} ");
-                sb.Append($"{monstersList[i].Name} ");
-                sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
-            }
-            Console.WriteLine(sb);
-            sb.Clear();
-
-            Console.WriteLine("[내 정보]");
-            sb.Append($"Lv.{MainProgram.player.Lv} ");
-            sb.Append($"{MainProgram.player.Name} {MainProgram.player.Job}");
-            sb.Append('\n');
-            sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
-            // ---------- Song ---------------
-            sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
-            // ---------- Song ---------------
-            Console.WriteLine(sb);
-            sb.Clear();
-
-            Console.WriteLine();
-            for (int i = 0; i < MainProgram.player.skills.Count;i++)
-            {
-                Console.WriteLine($"{i+1}. {MainProgram.player.skills[i].Name} - MP{MainProgram.player.skills[i].MpConsume}");
-                Console.WriteLine($"{MainProgram.player.skills[i].Description}");
-            }
-            Console.WriteLine("0. 취소");
-            Console.WriteLine("");
-            Console.WriteLine("원하시는 행동을 입력해주세요");
-
-
-            int input = Utility.CheckValidInput(0, monstersList.Count);
-
-            if (input == 0)
-            {
-                FightInfo();
-            }
-            else if (1 <= input && input <= MainProgram.player.skills.Count)
-            {
-                // 스킬 사용 후
-                Console.WriteLine(" 스킬 사용 !");
-                FightInfo();
-            }
-            else
-            {
-                Console.WriteLine("잘못된 입력입니다.");
-            }
-        }
-
-        public static void BattleTime()
+        public static void BattleTime() // 스킬을 사용하지 않은 기본 공격
         {
             Console.Clear();
             Console.WriteLine("Battle!");
@@ -191,6 +138,8 @@ namespace TeamRPG
             sb.Append($"{MainProgram.player.Name} {MainProgram.player.Job}");
             sb.Append('\n');
             sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
+            sb.Append('\n');
+            sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
             Console.WriteLine(sb);
             sb.Clear();
 
@@ -213,7 +162,8 @@ namespace TeamRPG
             }
             else if (1 <= input && input <= monstersList.Count)
             {
-                PlayerPhase(input);
+                PlayerAttack(input, CharacterBase.CalculateDamage(MainProgram.player.Atk));
+                PlayerPhase();
             }
             else
             {
@@ -222,95 +172,198 @@ namespace TeamRPG
         }
 
         // --------------------------------------------------------------------------
-        public static void PlayerPhase(int selected) //플레이어 공격패턴
+        public static void PlayerPhase() //플레이어 기본공격패턴
         {
-            int playerDmg = CharacterBase.CalculateDamage(MainProgram.player.Atk);
-            Console.WriteLine();
-            Console.WriteLine($"==============================================================");
-            Console.WriteLine();
-
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("[ 플레이어 턴 ]");
-            Console.ResetColor();
-            Console.WriteLine();
-            Console.WriteLine();
-
-
-
-            if (monstersList[selected - 1].CurrentHp > 0)
+            if (CheckAllMonstersDefeated())
             {
-                Console.WriteLine($"{MainProgram.player.Name} 의 공격!\n\n");
-                sb.Append($"Lv.{monstersList[selected - 1].Lv} ");
-                sb.Append($"{monstersList[selected - 1].Name} 을(를) 맞췄습니다. ");
-                sb.Append($"[데미지 : {playerDmg} ]\n\n");
-                sb.Append($"Lv.{monstersList[selected - 1].Lv} {monstersList[selected - 1].Name}\n");
-                Console.WriteLine(sb);
-                sb.Clear();
-
-                if (monstersList[selected - 1].CurrentHp - playerDmg <= 0)
-                {
-                    
-                    Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].IsDead}");
-                    monstersList[selected - 1].CurrentHp -= playerDmg;
-                }
-                else
-                {
-                    Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].CurrentHp -= playerDmg}");
-                }
+                Console.ReadLine();
+                Console.Clear();
+                Console.WriteLine($"==============================================================");
+                Console.WriteLine();
+                Console.WriteLine("Battle!! - Result");
+                Console.WriteLine();
+                Console.WriteLine("Victory!");
+                Console.WriteLine();
+                Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오");
                 Console.WriteLine();
                 Console.WriteLine($"==============================================================");
                 Console.WriteLine();
-                if (CheckAllMonstersDefeated())
-                {
-                    Console.ReadLine();
-                    Console.Clear();
-                    Console.WriteLine($"==============================================================");
-                    Console.WriteLine();
-                    Console.WriteLine("Battle!! - Result");
-                    Console.WriteLine();
-                    Console.WriteLine("Victory!");
-                    Console.WriteLine();
-                    Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오");
-                    Console.WriteLine();
-                    Console.WriteLine($"==============================================================");
-                    Console.WriteLine();
-                    Console.ReadLine();
-                    MainProgram.DisplayGameIntro();
-                }
-                else
-                {
-                    Console.WriteLine("0. 적 차례");
-                    Console.WriteLine();
-                    int input = Utility.CheckValidInput(0, 1);
-                    if (input == 0)
-                    {
-                        EnemyPhase();
-                    }
-                }
+                Console.ReadLine();
+                MainProgram.DisplayGameIntro();
             }
             else
             {
-                Console.WriteLine("이미 죽은 적입니다. 다른 적을 선택하세요");
+                Console.WriteLine("0. 적 차례");
                 Console.WriteLine();
-                Console.WriteLine($"==============================================================");
-                Console.WriteLine();
-                int input = Utility.CheckValidInput(0, monstersList.Count);
-                if (1 <= input && input <= monstersList.Count)
+                int input = Utility.CheckValidInput(0, 1);
+                if (input == 0)
                 {
-                    PlayerPhase(input);
+                    EnemyPhase();
+                }
+            }
+        }
+
+        public static void PlayerAttack(int selected, int damage)
+        {
+            // 치명타 기능
+            Random rand = new Random();
+            int criticalEvasionCheck = rand.Next(20);
+            if (criticalEvasionCheck <= 3)
+            {
+                damage *= 2;
+                Console.WriteLine("치명타가 터졌습니다!");
+            }
+
+            // 회피할 경우 공격 스킵
+            if (criticalEvasionCheck > 17)
+            {
+                Console.WriteLine("적이 공격을 회피했습니다!");
+            }
+
+            else
+            {
+                if (monstersList[selected - 1].CurrentHp > 0)
+                {
+                    Console.WriteLine($"{MainProgram.player.Name} 의 공격!\n");
+                    sb.Append($"Lv.{monstersList[selected - 1].Lv} ");
+                    sb.Append($"{monstersList[selected - 1].Name} 을(를) 맞췄습니다. ");
+                    sb.Append($"[데미지 : {damage} ]\n\n");
+                    sb.Append($"Lv.{monstersList[selected - 1].Lv} {monstersList[selected - 1].Name}\n");
+                    Console.Write(sb);
+                    sb.Clear();
+                    // -------- 송명근 전투부분 수정 -------
+                    if (monstersList[selected - 1].CurrentHp - damage <= 0)
+                    {
+
+                        Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].IsDead}");
+                        monstersList[selected - 1].CurrentHp = 0;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].CurrentHp -= damage}");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
+                    Console.WriteLine("이미 죽은 적입니다. 다른 적을 선택하세요");
                     Console.WriteLine();
                     Console.WriteLine($"==============================================================");
                     Console.WriteLine();
-                    Thread.Sleep(500);
-                    BattleTime();
+                    SelectMonster(damage);
                 }
             }
-            
+        }
+
+        // --- Song 스킬을 이용한 전투 추가 ---
+        public static void BattleSkill()
+        {
+            Console.Clear();
+            Console.WriteLine("Battle!");
+            Console.WriteLine();
+
+            for (int i = 0; i < monstersList.Count; i++)
+            {
+                sb.Append($"{i + 1}. ");
+                sb.Append($"Lv.{monstersList[i].Lv} ");
+                sb.Append($"{monstersList[i].Name} ");
+                sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
+            }
+            Console.WriteLine(sb);
+            sb.Clear();
+
+            Console.WriteLine("[내 정보]");
+            sb.Append($"Lv.{MainProgram.player.Lv} ");
+            sb.Append($"{MainProgram.player.Name} {MainProgram.player.Job}");
+            sb.Append('\n');
+            sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
+            // ---------- Song ---------------
+            sb.Append('\n');
+            sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
+            // ---------- Song ---------------
+            Console.WriteLine(sb);
+            sb.Clear();
+
+            Console.WriteLine();
+            for (int i = 0; i < MainProgram.player.skills.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {MainProgram.player.skills[i].Name} - MP {MainProgram.player.skills[i].MpConsume}");
+                Console.WriteLine($"{MainProgram.player.skills[i].Description}");
+            }
+            Console.WriteLine("0. 취소");
+            Console.WriteLine("");
+            Console.WriteLine("원하시는 행동을 입력해주세요");
+
+
+            int input = Utility.CheckValidInput(0, monstersList.Count);
+
+            if (input == 0)
+            {
+                FightInfo();
+            }
+            else if (1 <= input && input <= MainProgram.player.skills.Count)
+            {
+                // 스킬 사용 후
+                PlayerSkill(input);
+                PlayerPhase();
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다.");
+            }
+        }
+
+        public static void PlayerSkill(int selected)
+        {
+            if (MainProgram.player.CurrentMp < MainProgram.player.skills[selected - 1].MpConsume)
+            {
+                Console.WriteLine("마나가 부족합니다.");
+                Console.WriteLine("아무 키나 눌러 돌아가기");
+                Console.ReadLine();
+                FightInfo();
+
+            }
+            else if (MainProgram.player.skills[selected-1].Name == "알파 스트라이크")
+            {
+                Console.WriteLine("알파 스트라이크를 시전할 대상을 선택해주세요");
+                SelectMonster(MainProgram.player.Atk * 2);
+                // 마나 소모
+                MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
+            }
+            else if (MainProgram.player.skills[selected - 1].Name == "더블 스트라이크")
+            {
+                Console.WriteLine("더블 스트라이크 시전!");
+                List<int> temp = new List<int>();
+                for (int i = 0; i < monstersList.Count; i++)
+                {
+                    if (monstersList[i].CurrentHp != 0)
+                    {
+                        temp.Add(i);
+                    }
+                }
+                if (temp.Count == 1)
+                {
+                    PlayerAttack(temp[0]+1, MainProgram.player.Atk);
+                }
+                else if (temp.Count == 2)
+                {
+                    PlayerAttack(temp[0]+1, MainProgram.player.Atk);
+                    PlayerAttack(temp[1]+1, MainProgram.player.Atk);
+                }
+                else if (temp.Count > 2)
+                {
+                    Random rand = new Random();
+                    int firstTarget = rand.Next(1, temp.Count);
+                    int secondTarget = rand.Next(1, temp.Count - 1);
+                    if (firstTarget <= secondTarget) // 중복 제거
+                    {
+                        secondTarget += 1;
+                    }
+                    PlayerAttack(temp[firstTarget-1]+1, MainProgram.player.Atk);
+                    PlayerAttack(temp[secondTarget-1]+1, MainProgram.player.Atk);
+                }
+                // 마나 소모
+                MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
+            }
         }
 
         public static void EnemyPhase() //적 공격패턴
@@ -391,7 +444,7 @@ namespace TeamRPG
                 int input = Utility.CheckValidInput(0, 0);
                 if (input == 0)
                 {
-                    BattleTime();
+                    FightInfo();
                 }
             }
             else
@@ -417,6 +470,24 @@ namespace TeamRPG
                 }
             }
             return true;
+        }
+
+        public static void SelectMonster(int damage)
+        {
+            int input = Utility.CheckValidInput(0, monstersList.Count);
+            if (1 <= input && input <= monstersList.Count)
+            {
+                PlayerAttack(input, damage);
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다.");
+                Console.WriteLine();
+                Console.WriteLine($"==============================================================");
+                Console.WriteLine();
+                Thread.Sleep(500);
+                BattleTime();
+            }
         }
     }
     //-----------------------------------------------------
