@@ -18,6 +18,10 @@ namespace TeamRPG
         public int Hp { get; set; }
         public int CurrentHp { get; set; }
 
+        // ---------- Song ---------------
+        // Beta Commit test
+        public int Mp { get; set; }
+
         public CharacterBase(string name, int atk, int lv, int hp, string isDead)
         {
             Name = name;
