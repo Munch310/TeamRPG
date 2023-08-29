@@ -103,8 +103,8 @@ namespace TeamRPG
         {
             Exp += amount;
 
-            // 필요 경험치: 레벨 * 1000 
-            long needExp = Lv * 1000;
+            //// 필요 경험치: 레벨 * 1000 
+            //long needExp = Lv * 1000;
 
             while(Exp >= needExp)
             {
