@@ -13,7 +13,7 @@ namespace TeamRPG
 
         public string IsDead { get; set; }
         public string Name { get; set; }
-        public int Atk { get; set; }
+        public float Atk { get; set; }
         public int Lv { get; set; }
         public int Hp { get; set; }
         public int CurrentHp { get; set; }
