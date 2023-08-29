@@ -96,7 +96,58 @@ namespace TeamRPG
         }
         public static void BattleSkill()
         {
+            Console.Clear();
+            Console.WriteLine("Battle!");
+            Console.WriteLine();
 
+            for (int i = 0; i < monstersList.Count; i++)
+            {
+                sb.Append($"{i + 1}. ");
+                sb.Append($"Lv.{monstersList[i].Lv} ");
+                sb.Append($"{monstersList[i].Name} ");
+                sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
+            }
+            Console.WriteLine(sb);
+            sb.Clear();
+
+            Console.WriteLine("[내 정보]");
+            sb.Append($"Lv.{MainProgram.player.Lv} ");
+            sb.Append($"{MainProgram.player.Name} {MainProgram.player.Job}");
+            sb.Append('\n');
+            sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
+            // ---------- Song ---------------
+            sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
+            // ---------- Song ---------------
+            Console.WriteLine(sb);
+            sb.Clear();
+
+            Console.WriteLine();
+            for (int i = 0; i < MainProgram.player.skills.Count;i++)
+            {
+                Console.WriteLine($"{i+1}. {MainProgram.player.skills[i].Name} - MP{MainProgram.player.skills[i].MpConsume}");
+                Console.WriteLine($"{MainProgram.player.skills[i].Description}");
+            }
+            Console.WriteLine("0. 취소");
+            Console.WriteLine("");
+            Console.WriteLine("원하시는 행동을 입력해주세요");
+
+
+            int input = Utility.CheckValidInput(0, monstersList.Count);
+
+            if (input == 0)
+            {
+                FightInfo();
+            }
+            else if (1 <= input && input <= MainProgram.player.skills.Count)
+            {
+                // 스킬 사용 후
+                Console.WriteLine(" 스킬 사용 !");
+                FightInfo();
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다.");
+            }
         }
 
         public static void BattleTime()

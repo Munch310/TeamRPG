@@ -58,7 +58,8 @@ namespace TeamRPG
         // Mp 구현
         public int Mp { get; set; }
         public int CurrentMp { get; set; }
-        // ---------- Song ---------------
+        // 스킬 목록 구현
+        public List <Skill> skills { get; set; }
 
         public Character(string name, string job, int lv, int atk, int def, int hp, int gold, string isDead, int mp) : base(name, atk, lv, hp, isDead)
         {
@@ -68,7 +69,14 @@ namespace TeamRPG
             Gold = gold;
             CurrentMp = mp;
             Mp = mp;
+            skills = new List<Skill> { };
         }
+        public void AddSkill(Skill skill)
+        {
+            skills.Add(skill);
+        }
+        // ---------- Song ---------------
+
     }
 
     class Minion : CharacterBase
