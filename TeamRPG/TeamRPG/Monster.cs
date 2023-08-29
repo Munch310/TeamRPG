@@ -150,7 +150,7 @@ namespace TeamRPG
             }
         }
 
-        // --------------------------8.29 수정해야함!------------------------------------------------
+        // --------------------------------------------------------------------------
         public static void PlayerPhase(int selected) //플레이어 공격패턴
         {
             int playerDmg = CharacterBase.CalculateDamage(MainProgram.player.Atk);
@@ -279,7 +279,6 @@ namespace TeamRPG
                     MainProgram.player.CurrentHp -= monsDmg;
                     if (MainProgram.player.CurrentHp <= 0)
                     {
-                        //sb.Append($"HP {MainProgram.player.CurrentHp} -> 0");
                         sb.Append($"HP {saveCurrentHp} -> 0");
                         Console.WriteLine(sb);
                         Console.WriteLine();
@@ -301,7 +300,6 @@ namespace TeamRPG
                     }
                     else
                     {
-                        //sb.Append($"HP {MainProgram.player.CurrentHp} -> {MainProgram.player.CurrentHp - monsDmg}");
                         sb.Append($"HP {saveCurrentHp} -> {MainProgram.player.CurrentHp}");
                         Console.WriteLine(sb);
                         Console.WriteLine();
@@ -344,10 +342,10 @@ namespace TeamRPG
             {
                 if (monster.CurrentHp > 0)
                 {
-                    return false; // 아직 살아있는 몬스터가 있다면 전투는 아직 승리하지 않은 상태
+                    return false;
                 }
             }
-            return true; // 모든 몬스터의 CurrentHp가 0 이하인 경우, 전투에서 승리한 상태
+            return true;
         }
         //------------------------------------------------------------------------------------------------
     }
