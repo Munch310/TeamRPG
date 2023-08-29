@@ -81,6 +81,25 @@ namespace TeamRPG
             Hp += 10;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amount">획득한 경험치 양</param>
+        public void GetExp(long amount)
+        {
+            Exp += amount;
+
+            // 필요 경험치: 레벨 * 1000 
+            long needExp = Lv * 1000;
+
+            while(Exp >= needExp)
+            {
+                LvUp();
+
+                Exp -= 1000;
+            }
+        }
+
         // -----
         
     }
