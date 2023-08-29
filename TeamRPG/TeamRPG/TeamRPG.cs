@@ -35,6 +35,12 @@ namespace TeamRPG
         {
             // 캐릭터 정보 세팅
             player = new Character("Chad", "전사", 1, 10, 5, 100, 1500, "Dead", 50);
+            // -------송명근 스킬 추가 방식 ----------//
+            // 나중에 캐릭터 생성 구현 시 if (전사) { player에 전사 스킬 추가 }
+            // else if (마법사) { player에 마법사 스킬 추가 }
+            // 지금은 편의상 전사이므로 있는 스킬 2개 추가
+            player.AddSkill(SkillList.alphaStrike);
+            player.AddSkill(SkillList.doubleStrike);
 
             // 아이템 정보 세팅
 
