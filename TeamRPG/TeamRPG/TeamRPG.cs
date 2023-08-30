@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeamRPG;
+using System.Text.Json;
 
 namespace TeamRPG
 {
@@ -18,6 +19,7 @@ namespace TeamRPG
         public static CanonMinion canonMinion;
         public static VoidMinion voidMinion;
 
+        
 
         static void Main(string[] args)
         {
@@ -27,11 +29,11 @@ namespace TeamRPG
             // -----
 
 
-            GameDataSetting();
+            Utility.LoadGameData();
             DisplayGameIntro();
         }
 
-        static void GameDataSetting()
+        public static void GameDataSetting()
         {
             // 캐릭터 정보 세팅
             //player = new Character("Chad", "전사", 1, 10, 5, 100, 1500, "Dead", 50);
@@ -103,7 +105,7 @@ namespace TeamRPG
             Console.SetCursorPosition(48, 23);
             Console.Write(" [3] 전투 ");
             Console.SetCursorPosition(68, 23);
-            Console.Write(" [4] 휴식 ");
+            Console.Write(" [4] 여관 ");
             Console.SetCursorPosition(3, 27);
             Console.Write("숫자를 입력해주세요: ");
             int input = Utility.CheckValidInput(1, 3);
@@ -131,6 +133,14 @@ namespace TeamRPG
                 Monsters.FightInfo();
             }
             //---------------------------------------------
+            else if (input == 4)
+            {
+                Console.SetCursorPosition(3, 27);
+                Console.WriteLine("여관으로 이동합니다.");
+                Thread.Sleep(300);
+                GetRestInfo();
+                
+            }
             else
             {
                 Console.SetCursorPosition(3, 27);
@@ -185,5 +195,83 @@ namespace TeamRPG
                 DisplayGameIntro();
             }
         }
+        //--------------문현우 저장 추가--------------
+        static void GetRestInfo()
+        {
+            Console.Clear();
+            UI.DisplayGameUI();
+            Console.SetCursorPosition(34, 5);
+            Console.WriteLine("[여관]");
+            Console.SetCursorPosition(26, 6);
+            Console.WriteLine("이곳에서 휴식을 취할 수 있습니다.");
+            Console.SetCursorPosition(6, 7);
+            Console.Write($"Lv.{player.Lv}");
+            Console.SetCursorPosition(6, 9);
+            Console.WriteLine($"{player.Name}({player.Job})");
+            Console.SetCursorPosition(6, 11);
+            Console.WriteLine($"공격력 :{player.Atk}");
+            Console.SetCursorPosition(6, 13);
+            Console.WriteLine($"방어력 : {player.Def}");
+            Console.SetCursorPosition(6, 15);
+            Console.WriteLine($"체력 : {player.CurrentHp} / {player.Hp}");
+            Console.SetCursorPosition(6, 17);
+            Console.WriteLine($"마나 : {player.CurrentMp} / {player.Mp}");
+            Console.SetCursorPosition(6, 19);
+            Console.WriteLine($"Gold : {player.Gold} G");
+            Console.SetCursorPosition(2, 23);
+            Console.WriteLine(" [0] 나가기 ");
+            Console.SetCursorPosition(24, 23);
+            Console.Write(" [1] 휴식 취하기 ");
+            Console.SetCursorPosition(3, 27);
+            Console.Write("숫자를 입력해주세요: ");
+
+            int input = Utility.CheckValidInput(0, 1);
+            if (input == 0)
+            {
+                Console.SetCursorPosition(3, 27);
+                Console.WriteLine("메인화면으로 돌아갑니다..");
+                Thread.Sleep(300);
+                DisplayGameIntro();
+            }
+            else if (input == 1)
+            {
+                Console.Clear();
+                UI.DisplayGameUI();
+                Console.SetCursorPosition(3, 27);
+                Console.WriteLine("휴식을 취합니다..");
+                Console.SetCursorPosition(3, 12);
+                Console.Write($"Hp {player.CurrentHp}");
+                player.CurrentHp += 50;
+                if (player.CurrentHp > player.Hp)
+                {
+                    player.CurrentHp = player.Hp;
+                }
+                Console.WriteLine($" -> {player.CurrentHp}");
+                Console.SetCursorPosition(3, 14);
+                Console.Write($"Mp {player.CurrentMp}");
+                player.CurrentMp += 50;
+                if (player.CurrentMp > player.Mp)
+                {
+                    player.CurrentMp = player.Mp;
+                }
+                Console.WriteLine($" -> {player.CurrentMp}");
+                Console.SetCursorPosition(3, 14);
+                Console.WriteLine($"Mp  {player.CurrentMp}");
+                Thread.Sleep(300);
+                Utility.SaveGameData();
+                Console.SetCursorPosition(3, 27);
+                Console.WriteLine("저장이 완료되었습니다.");
+                Thread.Sleep(400);
+                DisplayGameIntro();
+            }
+            else
+            {
+                Console.SetCursorPosition(3, 27);
+                Console.WriteLine("숫자를 다시 입력하세요");
+                Thread.Sleep(300);
+                DisplayGameIntro();
+            }
+        }
+        //----------------------------
     }
 }
