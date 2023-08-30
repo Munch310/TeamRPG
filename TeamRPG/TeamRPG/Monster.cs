@@ -42,8 +42,8 @@ namespace TeamRPG
             Console.Clear();
 
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("Battle!");
+            Console.SetCursorPosition(35, 2);
+            Console.WriteLine("[전투]");
 
             for (int i = 0; i < monstersList.Count; i++)
             {
@@ -137,8 +137,8 @@ namespace TeamRPG
         {
             Console.Clear();
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("Battle!");
+            Console.SetCursorPosition(32, 2);
+            Console.WriteLine("[기본 공격]");
 
             for (int i = 0; i < monstersList.Count; i++)
             {
@@ -218,8 +218,8 @@ namespace TeamRPG
             {
                 Console.Clear();
                 UI.DisplayGameUI();
-                Console.SetCursorPosition(30, 5);
-                Console.WriteLine("Battle!! - Result");
+                Console.SetCursorPosition(35, 2);
+                Console.WriteLine("[결과]");
                 Console.SetCursorPosition(30, 6);
                 Console.WriteLine("Victory!");
                 Console.SetCursorPosition(3, 27);
@@ -246,8 +246,8 @@ namespace TeamRPG
         {
             Console.Clear();
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("Battle!");
+            Console.SetCursorPosition(35, 2);
+            Console.WriteLine("[공격]");
             if (monstersList[selected - 1].CurrentHp > 0)
             {
                 // 치명타 기능
@@ -322,8 +322,8 @@ namespace TeamRPG
         {
             Console.Clear();
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("Battle!");
+            Console.SetCursorPosition(35, 2);
+            Console.WriteLine("[스킬]");
 
             for (int i = 0; i < monstersList.Count; i++)
             {
@@ -498,8 +498,8 @@ namespace TeamRPG
 
             Console.Clear();
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("Battle!");
+            Console.SetCursorPosition(35, 2);
+            Console.WriteLine("[몬스터 턴]");
 
 
 
@@ -514,11 +514,9 @@ namespace TeamRPG
                     }
                     Console.Clear();
                     UI.DisplayGameUI();
-                    Console.SetCursorPosition(34, 5);
-                    Console.WriteLine("Battle!");
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.SetCursorPosition(3, 7);
+                    Console.SetCursorPosition(35, 2);
                     Console.Write("[ 몬스터 턴 ]");
                     Console.ResetColor();
 
@@ -540,8 +538,8 @@ namespace TeamRPG
                         Console.WriteLine($"HP {saveCurrentHp} -> 0");
                         Console.Clear();
                         UI.DisplayGameUI();
-                        Console.SetCursorPosition(30, 5);
-                        Console.WriteLine("Battle!! - Result");
+                        Console.SetCursorPosition(35, 2);
+                        Console.WriteLine("[사망]");
                         Console.SetCursorPosition(30, 9);
                         Console.WriteLine("Game Over...");
                         Console.SetCursorPosition(3, 27);
@@ -565,10 +563,8 @@ namespace TeamRPG
                 }
                 Console.Clear();
                 UI.DisplayGameUI();
-                Console.SetCursorPosition(34, 5);
-                Console.WriteLine("Battle!");
-                Console.SetCursorPosition(2, 23);
-                Console.WriteLine("플레이어 차례");
+                Console.SetCursorPosition(32, 2);
+                Console.WriteLine("[플레이어 턴]");
                 Console.SetCursorPosition(3, 27);
                 Console.Write("아무키를 눌러 플레이어 차례로 진입하십시오");
                 Console.ReadKey();

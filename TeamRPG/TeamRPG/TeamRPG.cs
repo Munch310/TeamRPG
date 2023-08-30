@@ -98,6 +98,8 @@ namespace TeamRPG
             //    monstersList[i].CurrentHp = monstersList[i].Hp;
             //}
             UI.DisplayGameUI();
+            UI.DIsplayGameTitle();
+
             Console.SetCursorPosition(2, 23);
             Console.Write(" [1] 상태보기 ");
             Console.SetCursorPosition(24, 23);
@@ -155,9 +157,9 @@ namespace TeamRPG
             Console.Clear();
 
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
+            Console.SetCursorPosition(32, 2);
             Console.WriteLine("[상태보기]");
-            Console.SetCursorPosition(26, 6);
+            Console.SetCursorPosition(24, 6);
             Console.WriteLine("캐릭터의 정보를 표시합니다.");
             Console.SetCursorPosition(2, 23);
             Console.WriteLine(" [0] 나가기 ");
@@ -200,18 +202,16 @@ namespace TeamRPG
         {
             Console.Clear();
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
+            Console.SetCursorPosition(35, 2);
             Console.WriteLine("[여관]");
-            Console.SetCursorPosition(26, 6);
-            Console.WriteLine("이곳에서 휴식을 취할 수 있습니다.");
-            Console.SetCursorPosition(6, 7);
-            Console.Write($"Lv.{player.Lv}");
-            Console.SetCursorPosition(6, 9);
-            Console.WriteLine($"{player.Name}({player.Job})");
+            Console.SetCursorPosition(15, 6);
+            Console.WriteLine("휴식을 취할 경우, 체력과 마나를 50 회복합니다.");
+            Console.SetCursorPosition(17, 9);
+            Console.WriteLine("또한, 현재 플레이어 데이터가 저장됩니다.");
             Console.SetCursorPosition(6, 11);
-            Console.WriteLine($"공격력 :{player.Atk}");
+            Console.Write($"Lv.{player.Lv}");
             Console.SetCursorPosition(6, 13);
-            Console.WriteLine($"방어력 : {player.Def}");
+            Console.WriteLine($"{player.Name}({player.Job})");
             Console.SetCursorPosition(6, 15);
             Console.WriteLine($"체력 : {player.CurrentHp} / {player.Hp}");
             Console.SetCursorPosition(6, 17);
