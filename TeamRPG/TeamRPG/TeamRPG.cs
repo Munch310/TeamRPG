@@ -53,6 +53,14 @@ namespace TeamRPG
             // 아이템 정보 세팅
 
 
+
+            //-------------------------------------
+        }
+
+        public static void DisplayGameIntro()
+        {
+            Console.Clear();
+
             //------정재호 몬스터/ 몬스터 리스트 정보세팅----------
             // 이름, 레벨,공격,체력            
             monsters = new Monsters();
@@ -83,16 +91,10 @@ namespace TeamRPG
             //monsters.AddMonster2List(voidMinion);
 
             monstersList = Monsters.GetMonstersList();
-            //-------------------------------------
-        }
-
-        public static void DisplayGameIntro()
-        {
-            Console.Clear();
-            for (int i = 0; i < monstersList.Count; i++) //몬스터 체력 초기화
-            {
-                monstersList[i].CurrentHp = monstersList[i].Hp;
-            }
+            //for (int i = 0; i < monstersList.Count; i++) //몬스터 체력 초기화
+            //{
+            //    monstersList[i].CurrentHp = monstersList[i].Hp;
+            //}
             UI.DisplayGameUI();
             Console.SetCursorPosition(2, 23);
             Console.Write(" [1] 상태보기 ");
