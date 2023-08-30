@@ -15,7 +15,6 @@ namespace TeamRPG
         {
             while (true)
             {
-
                 string input = Console.ReadLine();
                 try
                 {
@@ -25,9 +24,11 @@ namespace TeamRPG
                     bool parseSuccess = int.TryParse(input, out var ret);
                     if (!parseSuccess)
                     {
-                        // throw new FormatException();
-                        // throw new OverflowException();
-                        throw new FormatException("알맞은 숫자를 다시 입력하세요.");
+
+                        Console.SetCursorPosition(3, 27);
+                        Console.WriteLine("숫자를 입력해주세요:         "); // 오류 메시지 표시 후 공백 문자로 덮어쓰기
+                        Console.SetCursorPosition(24, 27);
+                        continue; // 다시 입력 받기 위해 반복문 처음으로 돌아감
                     }
                     return ret;
                 }
@@ -38,10 +39,9 @@ namespace TeamRPG
                     // Console.WriteLine(currentMethod);
 
                     // try에서 발생한 오류를 catch 블록에서 처리.
-                    
-                    Console.WriteLine("알맞은 숫자가 아닙니다.\n" + ex.Message);
-                    // break;
-                    // -------------------------------------
+
+                    Console.WriteLine(ex.Message);
+                    continue;
                 }
             }
         }
