@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,10 +18,6 @@ namespace TeamRPG
         public int Hp { get; set; }
         public int CurrentHp { get; set; }
 
-        // ---------- Song ---------------
-        // ---------- Moon ---------------
-        // Beta Commit test
-        public int Mp { get; set; }
 
         public CharacterBase(string name, int atk, int lv, int hp, string isDead)
         {
@@ -45,7 +41,7 @@ namespace TeamRPG
             {
                 randDmg = atk / 10;
             }
-            damage = rand.Next(atk - randDmg, atk + randDmg +1);
+            damage = rand.Next(atk - randDmg, atk + randDmg + 1);
             return damage;
         }
     }
@@ -54,23 +50,40 @@ namespace TeamRPG
     {
         public string Job { get; }
 
-        // 레벨업을 위해 set을 추가함
         public int Def { get; set; }
-        
-        
+
         public int Gold { get; set; }
 
         // ----- 김형수 -----
-        public long Exp {  get; set; }
+        public int Exp { get; set; }
+
+        // 필요 경험치
+        public int? needExp { get; set; }
         // -----
 
-        public Character(string name, string job, int lv, int atk, int def, int hp, int gold, string isDead) : base(name, atk, lv, hp, isDead)
+        // ---------- Song ---------------
+        // Mp 구현
+        public int Mp { get; set; }
+        public int CurrentMp { get; set; }
+        // 스킬 목록 구현
+        public List<Skill> skills { get; set; }
+
+        public Character(string name, string job, int lv, int atk, int def, int hp, int gold, string isDead, int mp) : base(name, atk, lv, hp, isDead)
         {
             Job = job;
             Def = def;
             CurrentHp = hp;
             Gold = gold;
+            CurrentMp = mp;
+            Mp = mp;
+            skills = new List<Skill> { };
         }
+        public void AddSkill(Skill skill)
+        {
+            skills.Add(skill);
+        }
+        // ---------- Song ---------------
+
 
         // ----- 김형수 -----
 
@@ -79,30 +92,65 @@ namespace TeamRPG
             Lv++;
             Atk += 1;
             Def += 1;
-            Hp += 10;
+        }
+
+        /// <summary>
+        /// 레벨 당 필요 경험치를 셋팅한다.
+        /// </summary>
+        /// <param name="lv"></param>
+        public void SetNeedExp(int lv)
+        {
+            switch (lv)
+            {
+                case 1:
+                    needExp = 10;
+                    break;
+
+                case 2:
+                    needExp = 35;
+                    break;
+
+                case 3:
+                    needExp = 65;
+                    break;
+
+                case 4:
+                    needExp = 100;
+                    break;
+
+                default:
+                    needExp = null;
+                    break;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="amount">획득한 경험치 양</param>
-        public void GetExp(long amount)
+        /// 
+        public void GetExp(int amount)
         {
+            if (needExp == null)
+                Console.WriteLine("더 이상 경험치를 얻을 수 없습니다.");
+
             Exp += amount;
 
-            // 필요 경험치: 레벨 * 1000 
-            long needExp = Lv * 1000;
+            //// 필요 경험치: 레벨 * 1000 
+            //long needExp = Lv * 1000;
 
-            while(Exp >= needExp)
+            while (Exp >= needExp)
             {
                 LvUp();
 
-                Exp -= 1000;
+                Exp = 0;
             }
         }
 
+
+
         // -----
-        
+
     }
 
     class Minion : CharacterBase
