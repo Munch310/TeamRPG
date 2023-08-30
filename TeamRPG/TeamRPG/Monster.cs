@@ -229,6 +229,8 @@ namespace TeamRPG
             }
             else
             {
+                Console.Clear();
+                UI.DisplayGameUI();
                 Console.SetCursorPosition(2, 23);
                 Console.WriteLine(" [0] 적 차례");
                 Console.SetCursorPosition(3, 27);
