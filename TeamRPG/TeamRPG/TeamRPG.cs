@@ -56,13 +56,31 @@ namespace TeamRPG
             //------정재호 몬스터/ 몬스터 리스트 정보세팅----------
             // 이름, 레벨,공격,체력            
             monsters = new Monsters();
-            minion = new Minion("미니언", 5, 15, 2, "Dead");
-            canonMinion = new CanonMinion("대포미니언", 8, 25, 5, "Dead");
-            voidMinion = new VoidMinion("공허충", 9, 10, 3, "Dead");
+            int monsterCount = 3; // 나중 stage 구현 시 증가 가능
+            for (int i = 0; i < monsterCount; i++)
+            {
+                Random rand = new Random();
+                int temp = rand.Next(1, 3);
+                if (temp == 1)
+                {
+                    monsters.AddMonster2List(new Minion("미니언", 5, 15, 2, "Dead"));
+                }
+                else if (temp == 2)
+                {
+                    monsters.AddMonster2List(new CanonMinion("대포미니언", 8, 25, 5, "Dead"));
+                }
+                else if (temp == 3)
+                {
+                    monsters.AddMonster2List(new VoidMinion("공허충", 9, 10, 3, "Dead"));
+                }
+            }
+            //minion = new Minion("미니언", 5, 15, 2, "Dead");
+            //canonMinion = new CanonMinion("대포미니언", 8, 25, 5, "Dead");
+            //voidMinion = new VoidMinion("공허충", 9, 10, 3, "Dead");
 
-            monsters.AddMonster2List(minion);
-            monsters.AddMonster2List(canonMinion);
-            monsters.AddMonster2List(voidMinion);
+            //monsters.AddMonster2List(minion);
+            //monsters.AddMonster2List(canonMinion);
+            //monsters.AddMonster2List(voidMinion);
 
             monstersList = Monsters.GetMonstersList();
             //-------------------------------------
