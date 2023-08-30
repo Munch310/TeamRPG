@@ -41,7 +41,7 @@ namespace TeamRPG
             {
                 randDmg = atk / 10;
             }
-            damage = rand.Next(atk - randDmg, atk + randDmg +1);
+            damage = rand.Next(atk - randDmg, atk + randDmg + 1);
             return damage;
         }
     }
@@ -49,9 +49,9 @@ namespace TeamRPG
     public class Character : CharacterBase
     {
         public string Job { get; }
-        
+
         public int Def { get; set; }
-        
+
         public int Gold { get; set; }
 
         // ----- 김형수 -----
@@ -66,7 +66,7 @@ namespace TeamRPG
         public int Mp { get; set; }
         public int CurrentMp { get; set; }
         // 스킬 목록 구현
-        public List <Skill> skills { get; set; }
+        public List<Skill> skills { get; set; }
 
         public Character(string name, string job, int lv, int atk, int def, int hp, int gold, string isDead, int mp) : base(name, atk, lv, hp, isDead)
         {
@@ -84,7 +84,7 @@ namespace TeamRPG
         }
         // ---------- Song ---------------
 
-        
+
         // ----- 김형수 -----
 
         public void LvUp()
@@ -139,7 +139,7 @@ namespace TeamRPG
             //// 필요 경험치: 레벨 * 1000 
             //long needExp = Lv * 1000;
 
-            while(Exp >= needExp)
+            while (Exp >= needExp)
             {
                 LvUp();
 
@@ -147,10 +147,10 @@ namespace TeamRPG
             }
         }
 
-        
+
 
         // -----
-        
+
     }
 
     class Minion : CharacterBase
