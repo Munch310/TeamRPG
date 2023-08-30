@@ -93,6 +93,8 @@ namespace TeamRPG
             Lv++;
             Atk += 1;
             Def += 1;
+
+            SetNeedExp(Lv);
         }
 
         /// <summary>
