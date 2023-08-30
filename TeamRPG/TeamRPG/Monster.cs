@@ -305,15 +305,15 @@ namespace TeamRPG
                     }
                 }
                 // --송명근 -- 화면이 바로 전환되지 않고 적에게 준 피해 화면 표시 후 다음 화면 전환
-                Console.SetCursorPosition(2, 23);
-                Console.WriteLine("아무키를 눌러 다음 화면으로 가기");
+                Console.SetCursorPosition(3, 27);
+                Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오.");
                 Console.ReadLine();
             }
             else
             {
                 // 이미 죽은 적을 선택 했으므로, 다른 적을 선택하게 선택 화면으로 돌아갑니다. - 문현우
                 Console.SetCursorPosition(3, 27);
-                Console.WriteLine("이미 죽은 적입니다. 다른 적을 선택하세요");
+                Console.WriteLine("이미 죽은 적입니다. 다른 적을 선택하세요.");
                 Thread.Sleep(500);
                 FightInfo();
             }
@@ -411,7 +411,9 @@ namespace TeamRPG
         {
             if (MainProgram.player.CurrentMp < MainProgram.player.skills[selected - 1].MpConsume)
             {
-                Console.WriteLine("마나가 부족합니다.");
+                Console.SetCursorPosition(3, 27);
+                Console.WriteLine("마나가 부족합니다.    ");
+                Console.SetCursorPosition(3, 28);
                 Console.WriteLine("아무 키나 눌러 돌아가기");
                 Console.ReadLine();
                 FightInfo();
@@ -545,7 +547,7 @@ namespace TeamRPG
                         Console.SetCursorPosition(30, 9);
                         Console.WriteLine("Game Over...");
                         Console.SetCursorPosition(3, 27);
-                        Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오");
+                        Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오.");
                         Console.ReadLine();
                         Environment.Exit(0);
                         //캐릭터생성부로 돌아가는 함수();
