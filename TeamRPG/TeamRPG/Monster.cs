@@ -412,7 +412,7 @@ namespace TeamRPG
             if (MainProgram.player.CurrentMp < MainProgram.player.skills[selected - 1].MpConsume)
             {
                 Console.SetCursorPosition(3, 27);
-                Console.WriteLine("마나가 부족합니다.");
+                Console.WriteLine("마나가 부족합니다.    ");
                 Console.SetCursorPosition(3, 28);
                 Console.WriteLine("아무 키나 눌러 돌아가기");
                 Console.ReadLine();
