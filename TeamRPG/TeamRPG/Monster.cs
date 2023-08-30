@@ -256,7 +256,7 @@ namespace TeamRPG
                 int space = 0;
                 Random rand = new Random();
                 int criticalEvasionCheck = rand.Next(20);
-                if (criticalEvasionCheck <= 7)
+                if (criticalEvasionCheck <= 3)
                 {
                     damage *= 2;
                     isCrit = true;
@@ -264,7 +264,7 @@ namespace TeamRPG
                 }
 
                 // 회피할 경우 공격 스킵
-                if (criticalEvasionCheck > 13)
+                if (criticalEvasionCheck > 17)
                 {
                     Console.SetCursorPosition(3, 10);
                     Console.WriteLine($"{monstersList[selected - 1].Name}이 공격을 회피했습니다!");
