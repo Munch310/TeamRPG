@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using TeamRPG;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace TeamRPG
 {
@@ -26,11 +24,6 @@ namespace TeamRPG
         {
             return monstersList;
         }
-        public static void sbClear()
-        {
-            Console.WriteLine(sb);
-            sb.Clear();
-        }
 
         public void AddMonster2List(CharacterBase _Monster)
         {
@@ -40,92 +33,51 @@ namespace TeamRPG
         public static void FightInfo() //전투메서드
         {
             Console.Clear();
-
-            UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
             Console.WriteLine("Battle!");
+            Console.WriteLine();
 
             for (int i = 0; i < monstersList.Count; i++)
             {
-                if (monstersList[i].CurrentHp > 0)
-                {
-                    sb.Append($"Lv.{monstersList[i].Lv} ");
-                    sb.Append($"{monstersList[i].Name} ");
-                    sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
-                    Console.SetCursorPosition(3 + (i * 27), 7);
-                    Console.WriteLine(sb);
-                    sb.Clear();
-                }
-                else if (monstersList[i].CurrentHp <= 0)
-                {
-                    Console.SetCursorPosition(3 + (i * 27), 7);
-                    Console.BackgroundColor = ConsoleColor.Gray;
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.Write($"Lv.{monstersList[i].Lv} ");
-                    Console.Write($"{monstersList[i].Name} ");
-                    Console.WriteLine($"{monstersList[i].IsDead} \n");
-                    Console.ResetColor();
-                }
-
+                sb.Append($"Lv.{monstersList[i].Lv} ");
+                sb.Append($"{monstersList[i].Name} ");
+                sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
             }
-            Console.SetCursorPosition(3, 10);
+            Console.WriteLine(sb);
+            sb.Clear();
+
             Console.WriteLine("[내 정보]");
-
-            Console.SetCursorPosition(3, 12);
             sb.Append($"Lv.{MainProgram.player.Lv} ");
-            sbClear();
-            Console.SetCursorPosition(3, 14);
             sb.Append($"{MainProgram.player.Name} {MainProgram.player.Job}");
-            sbClear();
-            Console.SetCursorPosition(3, 16);
+            sb.Append('\n');
             sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
-            sbClear();
-            // ---------- Song Mp 추가 ---------------
-            Console.SetCursorPosition(3, 18);
-            sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
-            // ---------- Song ---------------
-            sbClear();
+            Console.WriteLine(sb);
+            sb.Clear();
 
+            Console.WriteLine();
+            Console.WriteLine("1. 공격");
+            Console.WriteLine();
+            Console.WriteLine("0. 메인화면으로");
+            Console.WriteLine();
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
+            Console.WriteLine();
 
-
-            Console.SetCursorPosition(2, 23);
-            Console.WriteLine(" [1] 공격 ");
-            // ---------- Song 스킬추가 ---------------
-            Console.SetCursorPosition(24, 23);
-            Console.WriteLine(" [2] 스킬 ");
-            // ---------- Song ---------------
-            Console.SetCursorPosition(48, 23);
-            Console.WriteLine(" [0] 도망가기 ");
-            Console.SetCursorPosition(3, 27);
-            Console.Write("숫자를 입력해주세요: ");
-
-            int input = Utility.CheckValidInput(0, 2);
+            int input = Utility.CheckValidInput(1, 1);
             if (input == 1)
             {
-                Console.SetCursorPosition(3, 27);
-                Console.WriteLine("공격 창으로 이동합니다.");
+                Console.WriteLine("전투 창으로 이동합니다.");
                 Thread.Sleep(300);
-                BattleNormal();
+                BattleTime();
             }
-            // ---------- Song 스킬 창 추가---------------
-            else if (input == 2)
+            if (input == 0)
             {
-                Console.SetCursorPosition(3, 27);
-                Console.WriteLine("스킬 창으로 이동합니다.");
-                Thread.Sleep(300);
-                BattleSkill();
-            }
-            // ---------- Song ---------------
-            else if (input == 0)
-            {
-                Console.SetCursorPosition(3, 27);
+                Console.WriteLine();
                 Console.WriteLine("메인화면으로 돌아갑니다..");
                 Thread.Sleep(300);
                 MainProgram.DisplayGameIntro();
             }
             else
             {
-                Console.SetCursorPosition(3, 27);
+                Console.WriteLine();
                 Console.WriteLine("숫자를 다시 입력하세요");
                 Console.WriteLine();
                 Thread.Sleep(300);
@@ -133,375 +85,171 @@ namespace TeamRPG
             }
         }
 
-        public static void BattleNormal() // 스킬을 사용하지 않은 기본 공격
+        public static void BattleTime()
         {
             Console.Clear();
-            UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
             Console.WriteLine("Battle!");
+            Console.WriteLine();
 
             for (int i = 0; i < monstersList.Count; i++)
             {
                 if (monstersList[i].CurrentHp > 0)
                 {
-                    sb.Append($"[{i + 1}] ");
+                    sb.Append($"{i + 1}. ");
                     sb.Append($"Lv.{monstersList[i].Lv} ");
                     sb.Append($"{monstersList[i].Name} ");
                     sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
-                    Console.SetCursorPosition(2 + (i * 27), 7);
                     Console.WriteLine(sb);
                     sb.Clear();
                 }
-                else if (monstersList[i].CurrentHp <= 0)
+                else if(monstersList[i].CurrentHp <= 0)
                 {
-                    Console.SetCursorPosition(2 + (i * 27), 7);
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.Write($"[{i + 1}] ");
+                    Console.Write($"{i + 1}. ");
                     Console.Write($"Lv.{monstersList[i].Lv} ");
                     Console.Write($"{monstersList[i].Name} ");
                     Console.WriteLine($"{monstersList[i].IsDead} \n");
                     Console.ResetColor();
                 }
-                
             }
+            
 
-            Console.SetCursorPosition(3, 10);
             Console.WriteLine("[내 정보]");
-
-            Console.SetCursorPosition(3, 12);
             sb.Append($"Lv.{MainProgram.player.Lv} ");
-            sbClear();
-            Console.SetCursorPosition(3, 14);
             sb.Append($"{MainProgram.player.Name} {MainProgram.player.Job}");
-            sbClear();
-            Console.SetCursorPosition(3, 16);
+            sb.Append('\n');
             sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
-            sbClear();
-            // ---------- Song Mp 추가 ---------------
-            Console.SetCursorPosition(3, 18);
-            sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
-            // ---------- Song ---------------
-            sbClear();
+            Console.WriteLine(sb);
+            sb.Clear();
 
-            Console.SetCursorPosition(2, 23);
-            Console.WriteLine(" [0] 돌아가기 ");
-            Console.SetCursorPosition(3, 27);
-            Console.Write("대상을 입력해주세요: ");
+            Console.WriteLine();
+            Console.WriteLine("0. 도망가기");
+            Console.WriteLine();
+            Console.WriteLine("대상을 선택해주세요.");
+            Console.WriteLine();
 
             int input = Utility.CheckValidInput(0, monstersList.Count);
 
             if (input == 0)
             {
-                // 스킬 선택으로 마음을 바꿀수 있다 생각해서 수정했습니다. -문현우
-                Console.SetCursorPosition(3, 27);
-                Console.WriteLine("선택화면으로 돌아갑니다.");
-                Thread.Sleep(500);
-                FightInfo();
+                Console.WriteLine("도망치기를 선택했습니다.");
+                Console.WriteLine();
+                Console.WriteLine("메인화면으로 돌아갑니다.");
+                Console.WriteLine();
+                Thread.Sleep(300);
+                MainProgram.DisplayGameIntro();
             }
             else if (1 <= input && input <= monstersList.Count)
             {
-                PlayerAttack(input, CharacterBase.CalculateDamage(MainProgram.player.Atk));
-                PlayerPhase();
+                PlayerPhase(input);
             }
             else
             {
-                Console.SetCursorPosition(3, 27);
                 Console.WriteLine("잘못된 입력입니다.");
             }
         }
 
         // --------------------------------------------------------------------------
-        public static void PlayerPhase() // 플레이어 페이즈
+        public static void PlayerPhase(int selected) //플레이어 공격패턴
         {
-            if (CheckAllMonstersDefeated())
-            {
-                Console.Clear();
-                UI.DisplayGameUI();
-                Console.SetCursorPosition(30, 5);
-                Console.WriteLine("Battle!! - Result");
-                Console.SetCursorPosition(30, 6);
-                Console.WriteLine("Victory!");
-                Console.SetCursorPosition(3, 27);
-                Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오");
-                Console.ReadLine();
-                MainProgram.DisplayGameIntro();
-            }
-            else
-            {
-                Console.Clear();
-                UI.DisplayGameUI();
-                Console.SetCursorPosition(2, 23);
-                Console.WriteLine(" [0] 적 차례");
-                Console.SetCursorPosition(3, 27);
-                Console.Write("행동을 입력해주세요: ");
-                int input = Utility.CheckValidInput(0, 1);
-                if (input == 0)
-                {
-                    EnemyPhase();
-                }
-            }
-        }
+            int playerDmg = CharacterBase.CalculateDamage(MainProgram.player.Atk);
+            Console.WriteLine();
+            Console.WriteLine($"==============================================================");
+            Console.WriteLine();
 
-        // 플레이어 공격 메서드 구현
-        public static void PlayerAttack(int selected, int damage)
-        {
-            Console.Clear();
-            UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("Battle!");
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("[ 플레이어 턴 ]");
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine();
+
+
+
             if (monstersList[selected - 1].CurrentHp > 0)
             {
-                // 치명타 기능
-                // --송명근 UI 부분 추가--
-                bool isCrit = false;
-                int space = 0;
-                Random rand = new Random();
-                int criticalEvasionCheck = rand.Next(20);
-                if (criticalEvasionCheck <= 3)
-                {
-                    damage *= 2;
-                    isCrit = true;
-                    space = 2;
-                }
+                Console.WriteLine($"{MainProgram.player.Name} 의 공격!\n\n");
+                sb.Append($"Lv.{monstersList[selected - 1].Lv} ");
+                sb.Append($"{monstersList[selected - 1].Name} 을(를) 맞췄습니다. ");
+                sb.Append($"[데미지 : {playerDmg} ]\n\n");
+                sb.Append($"Lv.{monstersList[selected - 1].Lv} {monstersList[selected - 1].Name}\n");
+                Console.WriteLine(sb);
+                sb.Clear();
 
-                // 회피할 경우 공격 스킵
-                if (criticalEvasionCheck > 17)
+                if (monstersList[selected - 1].CurrentHp - playerDmg <= 0)
                 {
-                    Console.SetCursorPosition(3, 10);
-                    Console.WriteLine($"{monstersList[selected - 1].Name}이 공격을 회피했습니다!");
-                    Console.SetCursorPosition(3, 12);
-                    Console.WriteLine($"Hp {monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].CurrentHp}");
+                    
+                    Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].IsDead}");
+                    monstersList[selected - 1].CurrentHp -= playerDmg;
                 }
                 else
                 {
-                    if (isCrit == true)
+                    Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].CurrentHp -= playerDmg}");
+                }
+                Console.WriteLine();
+                Console.WriteLine($"==============================================================");
+                Console.WriteLine();
+                if (CheckAllMonstersDefeated())
+                {
+                    Console.ReadLine();
+                    Console.Clear();
+                    Console.WriteLine($"==============================================================");
+                    Console.WriteLine();
+                    Console.WriteLine("Battle!! - Result");
+                    Console.WriteLine();
+                    Console.WriteLine("Victory!");
+                    Console.WriteLine();
+                    Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오");
+                    Console.WriteLine();
+                    Console.WriteLine($"==============================================================");
+                    Console.WriteLine();
+                    Console.ReadLine();
+                    MainProgram.DisplayGameIntro();
+                }
+                else
+                {
+                    Console.WriteLine("0. 적 차례");
+                    Console.WriteLine();
+                    int input = Utility.CheckValidInput(0, 1);
+                    if (input == 0)
                     {
-                        Console.SetCursorPosition(3, 7);
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("치명타가 터졌습니다!");
-                        Console.ResetColor();
-                    }
-                    Console.SetCursorPosition(3, 7+space);
-                    Console.WriteLine($"{MainProgram.player.Name} 의 공격!\n");
-                    Console.SetCursorPosition(3, 9+space);
-                    Console.WriteLine($"Lv.{monstersList[selected - 1].Lv} ");
-                    Console.SetCursorPosition(3, 11+space);
-                    Console.Write($"{monstersList[selected - 1].Name} 을(를) 맞췄습니다. ");
-                    Console.WriteLine($"[데미지 : {damage} ]");
-                    Console.SetCursorPosition(3, 13+space);
-                    Console.WriteLine($"Lv.{monstersList[selected - 1].Lv} {monstersList[selected - 1].Name}\n");
-                    //Console.Clear();
-                    if (monstersList[selected - 1].CurrentHp - damage <= 0)
-                    {
-                        Console.SetCursorPosition(3, 15+space);
-                        Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].IsDead}");
-                        monstersList[selected - 1].CurrentHp = 0;
-                    }
-                    else
-                    {
-                        Console.SetCursorPosition(3, 15+space);
-                        Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].CurrentHp -= damage}");
+                        EnemyPhase();
                     }
                 }
-                // --송명근 -- 화면이 바로 전환되지 않고 적에게 준 피해 화면 표시 후 다음 화면 전환
-                Console.SetCursorPosition(2, 23);
-                Console.WriteLine("아무키를 눌러 다음 화면으로 가기");
-                Console.ReadLine();
             }
             else
             {
-                // 이미 죽은 적을 선택 했으므로, 다른 적을 선택하게 선택 화면으로 돌아갑니다. - 문현우
-                Console.SetCursorPosition(3, 27);
                 Console.WriteLine("이미 죽은 적입니다. 다른 적을 선택하세요");
-                Thread.Sleep(500);
-                FightInfo();
-            }
-        }
-
-        // --- Song 스킬을 이용한 전투 추가 ---
-        public static void BattleSkill() // 스킬을 사용하여 전투
-        {
-            Console.Clear();
-            UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("Battle!");
-
-            for (int i = 0; i < monstersList.Count; i++)
-            {
-                if (monstersList[i].CurrentHp > 0)
+                Console.WriteLine();
+                Console.WriteLine($"==============================================================");
+                Console.WriteLine();
+                int input = Utility.CheckValidInput(0, monstersList.Count);
+                if (1 <= input && input <= monstersList.Count)
                 {
-                    sb.Append($"[{i + 1}] ");
-                    sb.Append($"Lv.{monstersList[i].Lv} ");
-                    sb.Append($"{monstersList[i].Name} ");
-                    sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
-                    Console.SetCursorPosition(3 + (i * 27), 7);
-                    Console.WriteLine(sb);
-                    sb.Clear();
+                    PlayerPhase(input);
                 }
-                else if (monstersList[i].CurrentHp <= 0)
+                else
                 {
-                    Console.SetCursorPosition(3 + (i * 27), 7);
-                    Console.BackgroundColor = ConsoleColor.Gray;
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.Write($"Lv.{monstersList[i].Lv} ");
-                    Console.Write($"{monstersList[i].Name} ");
-                    Console.WriteLine($"{monstersList[i].IsDead} \n");
-                    Console.ResetColor();
+                    Console.WriteLine("잘못된 입력입니다.");
+                    Console.WriteLine();
+                    Console.WriteLine($"==============================================================");
+                    Console.WriteLine();
+                    Thread.Sleep(500);
+                    BattleTime();
                 }
-
             }
-
-            Console.SetCursorPosition(3, 10);
-            Console.WriteLine("[내 정보]");
-
-            Console.SetCursorPosition(3, 12);
-            sb.Append($"Lv.{MainProgram.player.Lv} ");
-            sbClear();
-            Console.SetCursorPosition(3, 14);
-            sb.Append($"{MainProgram.player.Name} {MainProgram.player.Job}");
-            sbClear();
-            Console.SetCursorPosition(3, 16);
-            sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
-            sbClear();
-            // ---------- Song Mp 추가 ---------------
-            Console.SetCursorPosition(3, 18);
-            sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
-            // ---------- Song ---------------
-            sbClear();
-
-            Console.SetCursorPosition(1, 22);
-            Console.WriteLine(" [0] 돌아가기 ");
-
-            for (int i = 0; i < MainProgram.player.skills.Count; i++)
-            {
-                Console.SetCursorPosition(2, 23 + i);
-                Console.Write($"[{i + 1}] {MainProgram.player.skills[i].Name} | MP {MainProgram.player.skills[i].MpConsume} ");
-                Console.WriteLine($"| {MainProgram.player.skills[i].Description}");
-            }
-
-            Console.SetCursorPosition(3, 27);
-            Console.Write("스킬을 입력해주세요: ");
-            int input = Utility.CheckValidInput(0, MainProgram.player.skills.Count);
-
-            if (input == 0)
-            {
-                Console.SetCursorPosition(3, 27);
-                Console.WriteLine("선택화면으로 돌아갑니다.");
-                Thread.Sleep(500);
-                FightInfo();
-            }
-            else if (1 <= input && input <= MainProgram.player.skills.Count)
-            {
-                // 스킬 사용 후
-                PlayerSkill(input);
-                PlayerPhase();
-            }
-            else
-            {
-                Console.SetCursorPosition(3, 27);
-                Console.Write("올바른 스킬을 입력해주세요: ");
-                Thread.Sleep(500);
-                BattleSkill();
-            }
-        }
-
-        // 스킬 실행 메서드
-        public static void PlayerSkill(int selected)
-        {
-            if (MainProgram.player.CurrentMp < MainProgram.player.skills[selected - 1].MpConsume)
-            {
-                Console.WriteLine("마나가 부족합니다.");
-                Console.WriteLine("아무 키나 눌러 돌아가기");
-                Console.ReadLine();
-                FightInfo();
-            }
-            else if (MainProgram.player.skills[selected - 1].Name == "알파 스트라이크")
-            {
-                Console.SetCursorPosition(3, 27);
-                Console.WriteLine("알파 스트라이크를 시전할 대상을 선택해주세요");
-                SelectMonster(MainProgram.player.Atk * 2);
-                // 마나 소모
-                MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
-            }
-            else if (MainProgram.player.skills[selected - 1].Name == "더블 스트라이크")
-            {
-                Console.SetCursorPosition(3, 27);
-                Console.WriteLine("더블 스트라이크 시전!");
-                List<int> temp = new List<int>();
-                for (int i = 0; i < monstersList.Count; i++)
-                {
-                    if (monstersList[i].CurrentHp != 0)
-                    {
-                        temp.Add(i);
-                    }
-                }
-                if (temp.Count == 1)
-                {
-                    PlayerAttack(temp[0] + 1, MainProgram.player.Atk);
-                }
-                else if (temp.Count == 2)
-                {
-                    PlayerAttack(temp[0] + 1, MainProgram.player.Atk);
-                    PlayerAttack(temp[1] + 1, MainProgram.player.Atk);
-                }
-                else if (temp.Count > 2)
-                {
-                    Random rand = new Random();
-                    int firstTarget = rand.Next(1, temp.Count);
-                    int secondTarget = rand.Next(1, temp.Count - 1);
-                    if (firstTarget <= secondTarget) // 중복 제거
-                    {
-                        secondTarget += 1;
-                    }
-                    PlayerAttack(temp[firstTarget - 1] + 1, MainProgram.player.Atk);
-                    PlayerAttack(temp[secondTarget - 1] + 1, MainProgram.player.Atk);
-                }
-                // 마나 소모
-                MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
-            }
-            else if (MainProgram.player.skills[selected - 1].Name == "썬더 볼트")
-            {
-                Console.SetCursorPosition(3, 27);
-                Console.WriteLine("썬더 볼트 시전!");
-                for (int i = 0; i < monstersList.Count; i++)
-                {
-                    if (monstersList[i].CurrentHp != 0)
-                    {
-                        PlayerAttack(i+1, MainProgram.player.Atk);
-                    }
-                }
-                // 마나 소모
-                MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
-            }
-            else if (MainProgram.player.skills[selected - 1].Name == "힐")
-            {
-                Console.Clear();
-                UI.DisplayGameUI();
-                Console.SetCursorPosition(3, 10);
-                Console.WriteLine("힐 시전!");
-                Console.SetCursorPosition(3, 12);
-                Console.Write($"Hp {MainProgram.player.CurrentHp}");
-                MainProgram.player.CurrentHp += 30;
-                if (MainProgram.player.CurrentHp > MainProgram.player.Hp)
-                {
-                    MainProgram.player.CurrentHp = MainProgram.player.Hp;
-                }
-                Console.WriteLine($" -> {MainProgram.player.CurrentHp}");
-                // 마나 소모
-                MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
-            }
+            
         }
 
         public static void EnemyPhase() //적 공격패턴
         {
+            
+            Console.WriteLine();
+            Console.WriteLine($"==============================================================");
+            Console.WriteLine();
 
-            Console.Clear();
-            UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("Battle!");
-
-
+            
 
             if (MainProgram.player.CurrentHp > 0)
             {
@@ -512,78 +260,76 @@ namespace TeamRPG
                     {
                         continue;
                     }
-                    Console.Clear();
-                    UI.DisplayGameUI();
-                    Console.SetCursorPosition(34, 5);
-                    Console.WriteLine("Battle!");
+
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.SetCursorPosition(3, 7);
                     Console.Write("[ 몬스터 턴 ]");
                     Console.ResetColor();
+                    Console.WriteLine();
+                    Console.WriteLine();
 
                     int monsDmg = CharacterBase.CalculateDamage(monstersList[i].Atk);
-                    Console.SetCursorPosition(3, 9);
-                    Console.WriteLine($"Lv.{monstersList[i].Lv} ");
-                    Console.SetCursorPosition(3, 11);
-                    Console.WriteLine($"{monstersList[i].Name} 의 공격\n\n");
-                    Console.SetCursorPosition(3, 13);
-                    Console.WriteLine($"{MainProgram.player.Name}을 맞췄습니다. [데미지 : {monsDmg}]");
-                    Console.SetCursorPosition(3, 15);
-                    Console.WriteLine($"Lv.{MainProgram.player.Lv} {MainProgram.player.Name}\n");
+                    sb.Append($"Lv.{monstersList[i].Lv} ");
+                    sb.Append($"{monstersList[i].Name} 의 공격\n\n");
+                    sb.Append($"{MainProgram.player.Name}을 맞췄습니다. [데미지 : {monsDmg}]");
+                    sb.Append("\n\n");
+                    sb.Append($"Lv.{ MainProgram.player.Lv} {MainProgram.player.Name}\n");
 
                     saveCurrentHp = MainProgram.player.CurrentHp;
                     MainProgram.player.CurrentHp -= monsDmg;
                     if (MainProgram.player.CurrentHp <= 0)
                     {
-                        Console.SetCursorPosition(30, 7);
-                        Console.WriteLine($"HP {saveCurrentHp} -> 0");
+                        sb.Append($"HP {saveCurrentHp} -> 0");
+                        Console.WriteLine(sb);
+                        Console.WriteLine();
                         Console.Clear();
-                        UI.DisplayGameUI();
-                        Console.SetCursorPosition(30, 5);
+                        Console.WriteLine($"==============================================================");
+                        Console.WriteLine();
                         Console.WriteLine("Battle!! - Result");
-                        Console.SetCursorPosition(30, 9);
+                        Console.WriteLine();
                         Console.WriteLine("Game Over...");
-                        Console.SetCursorPosition(3, 27);
+                        Console.WriteLine();
                         Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오");
+                        Console.WriteLine();
+                        Console.WriteLine($"==============================================================");
+                        Console.WriteLine();
+                        sb.Clear();
                         Console.ReadLine();
                         Environment.Exit(0);
                         //캐릭터생성부로 돌아가는 함수();
                     }
                     else
                     {
-                        Console.SetCursorPosition(3, 17);
-                        Console.WriteLine($"HP {saveCurrentHp} -> {MainProgram.player.CurrentHp}");
-                        Console.SetCursorPosition(3, 27);
+                        sb.Append($"HP {saveCurrentHp} -> {MainProgram.player.CurrentHp}");
+                        Console.WriteLine(sb);
+                        Console.WriteLine();
+                        Console.WriteLine($"==============================================================");
+                        Console.WriteLine();
                         Console.WriteLine("다음");
                         Console.WriteLine();
+                        Console.WriteLine($"==============================================================");
+                        Console.WriteLine();
                         Console.ReadKey();
-                        Console.Clear();
+                        sb.Clear();
                     }
-
-
+                    
+                    
                 }
-                Console.Clear();
-                UI.DisplayGameUI();
-                Console.SetCursorPosition(34, 5);
-                Console.WriteLine("Battle!");
-                Console.SetCursorPosition(2, 23);
-                Console.WriteLine("[0] 플레이어 차례");
-                Console.SetCursorPosition(3, 27);
-                Console.Write("행동을 입력해주세요: ");
+                Console.WriteLine("0. 플레이어 차례");
+                Console.WriteLine();
                 int input = Utility.CheckValidInput(0, 0);
                 if (input == 0)
                 {
-                    FightInfo();
+                    BattleTime();
                 }
             }
             else
             {
-                // 여기는 실행되지 않는 듯 합니다. - 문현우 
                 Console.WriteLine("Game Over...");
                 Console.WriteLine();
                 Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오");
                 Console.WriteLine();
+                Console.WriteLine($"==============================================================");
                 Console.WriteLine();
                 Console.ReadLine();
                 MainProgram.DisplayGameIntro();
@@ -600,23 +346,6 @@ namespace TeamRPG
                 }
             }
             return true;
-        }
-
-        public static void SelectMonster(int damage)
-        {
-            Console.SetCursorPosition(3, 28);
-            int input = Utility.CheckValidInput(0, monstersList.Count);
-            if (1 <= input && input <= monstersList.Count)
-            {
-                PlayerAttack(input, damage);
-            }
-            else
-            {
-                Console.SetCursorPosition(3, 27);
-                Console.WriteLine("잘못된 입력입니다! 올바른 대상을 선택해주세요.");
-                Thread.Sleep(300);
-                BattleSkill();
-            }
         }
     }
     //-----------------------------------------------------

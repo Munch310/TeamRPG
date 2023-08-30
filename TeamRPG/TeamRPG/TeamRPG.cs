@@ -17,7 +17,7 @@ namespace TeamRPG
         public static Minion minion;
         public static CanonMinion canonMinion;
         public static VoidMinion voidMinion;
-
+        
 
         static void Main(string[] args)
         {
@@ -34,21 +34,7 @@ namespace TeamRPG
         static void GameDataSetting()
         {
             // 캐릭터 정보 세팅
-            //player = new Character("Chad", "전사", 1, 10, 5, 100, 1500, "Dead", 50);
-            player = new Character("Deliki", "마법사", 1, 8, 3, 80, 1500, "Dead", 80);
-
-            // -------송명근 스킬 추가 방식 ----------//
-            // 나중에 캐릭터 생성 구현 시 if (전사) { player에 전사 스킬 추가 }
-            // else if (마법사) { player에 마법사 스킬 추가 }
-            // 지금은 편의상 전사이므로 있는 스킬 2개 추가
-
-            //// 전사
-            //player.AddSkill(SkillList.alphaStrike);
-            //player.AddSkill(SkillList.doubleStrike);
-
-            // 마법사
-            player.AddSkill(SkillList.thunderVolt);
-            player.AddSkill(SkillList.heal);
+            player = new Character("Chad", "전사", 1, 10, 5, 100, 1500, "Dead");
 
             // 아이템 정보 세팅
 
@@ -57,14 +43,14 @@ namespace TeamRPG
             // 이름, 레벨,공격,체력            
             monsters = new Monsters();
             minion = new Minion("미니언", 5, 15, 2, "Dead");
-            canonMinion = new CanonMinion("대포미니언", 8, 25, 5, "Dead");
+            canonMinion = new CanonMinion("대포미니언", 8, 25, 5,"Dead");
             voidMinion = new VoidMinion("공허충", 9, 10, 3, "Dead");
 
             monsters.AddMonster2List(minion);
             monsters.AddMonster2List(canonMinion);
             monsters.AddMonster2List(voidMinion);
 
-            monstersList = Monsters.GetMonstersList();
+             monstersList = Monsters.GetMonstersList();
             //-------------------------------------
         }
 
@@ -75,29 +61,32 @@ namespace TeamRPG
             {
                 monstersList[i].CurrentHp = monstersList[i].Hp;
             }
-            UI.DisplayGameUI();
-            Console.SetCursorPosition(2, 23);
-            Console.Write(" [1] 상태보기 ");
-            Console.SetCursorPosition(24, 23);
-            Console.Write(" [2] 인벤토리 ");
-            Console.SetCursorPosition(48, 23);
-            Console.Write(" [3] 전투 ");
-            Console.SetCursorPosition(68, 23);
-            Console.Write(" [4] 휴식 ");
-            Console.SetCursorPosition(3, 27);
-            Console.Write("숫자를 입력해주세요: ");
+
+            Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
+            Console.WriteLine("이곳에서 전전으로 들어가기 전 활동을 할 수 있습니다.");
+            Console.WriteLine();
+            Console.WriteLine("1. 상태보기");
+            Console.WriteLine("2. 인벤토리");
+            //--------------정재호 전투추가--------------
+            Console.WriteLine("3. 전투"); 
+            //-------------------------------------------
+            Console.WriteLine();
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
+            Console.WriteLine();
+
+
             int input = Utility.CheckValidInput(1, 3);
 
             if (input == 1)
             {
-                Console.SetCursorPosition(3, 27);
+                Console.WriteLine();
                 Console.WriteLine("상태보기 창으로 이동합니다.");
                 Thread.Sleep(300);
                 DisplayMyInfo();
             }
             else if (input == 2)
             {
-                Console.SetCursorPosition(3, 27);
+                Console.WriteLine();
                 Console.WriteLine("미구현");
                 Thread.Sleep(300);
                 DisplayGameIntro();
@@ -105,7 +94,7 @@ namespace TeamRPG
             //--------------정재호 전투추가--------------
             else if (input == 3)
             {
-                Console.SetCursorPosition(3, 27);
+                Console.WriteLine();
                 Console.WriteLine("던전으로 이동합니다.");
                 Thread.Sleep(300);
                 Monsters.FightInfo();
@@ -113,9 +102,10 @@ namespace TeamRPG
             //---------------------------------------------
             else
             {
-                Console.SetCursorPosition(3, 27);
-                Console.WriteLine("숫자를 다시 입력하세요.");
-                Thread.Sleep(500);
+                Console.WriteLine();
+                Console.WriteLine("숫자를 다시 입력하세요");
+                Console.WriteLine();
+                Thread.Sleep(300);
                 DisplayGameIntro();
             }
         }
@@ -124,43 +114,33 @@ namespace TeamRPG
         {
             Console.Clear();
 
-            UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("[상태보기]");
-            Console.SetCursorPosition(26, 6);
+            Console.WriteLine("상태보기");
             Console.WriteLine("캐릭터의 정보를 표시합니다.");
-            Console.SetCursorPosition(2, 23);
-            Console.WriteLine(" [0] 나가기 ");
-            Console.SetCursorPosition(6, 7);
-            Console.Write($"Lv.{player.Lv}");
-            Console.SetCursorPosition(6, 9);
+            Console.WriteLine();
+            Console.WriteLine($"Lv.{player.Lv}");
             Console.WriteLine($"{player.Name}({player.Job})");
-            Console.SetCursorPosition(6, 11);
             Console.WriteLine($"공격력 :{player.Atk}");
-            Console.SetCursorPosition(6, 13);
             Console.WriteLine($"방어력 : {player.Def}");
-            Console.SetCursorPosition(6, 15);
             Console.WriteLine($"체력 : {player.CurrentHp} / {player.Hp}");
-            Console.SetCursorPosition(6, 17);
-            Console.WriteLine($"마나 : {player.CurrentMp} / {player.Mp}");
-            Console.SetCursorPosition(6, 19);
             Console.WriteLine($"Gold : {player.Gold} G");
+            Console.WriteLine();
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine();
 
-            Console.SetCursorPosition(3, 27);
-            Console.Write("숫자를 입력해주세요: ");
             int input = Utility.CheckValidInput(0, 0);
 
             if (input == 0)
             {
-                Console.SetCursorPosition(3, 27);
+                Console.WriteLine();
                 Console.WriteLine("메인화면으로 돌아갑니다..");
                 Thread.Sleep(300);
                 DisplayGameIntro();
             }
             else
             {
-                Console.SetCursorPosition(3, 27);
+                Console.WriteLine();
                 Console.WriteLine("숫자를 다시 입력하세요");
+                Console.WriteLine();
                 Thread.Sleep(300);
                 DisplayGameIntro();
             }
