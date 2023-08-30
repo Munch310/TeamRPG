@@ -16,7 +16,7 @@ namespace TeamRPG
                 string input = Console.ReadLine();
                 try
                 {
-                    // ------문현우 try catch----------
+                    // ------문현우 try catch----------------
                     // 입력된 문자열을 정수로 변환 -> t, 정수 값 -> ret
                     // 실패 -> f , FormatException 발생.
                     bool parseSuccess = int.TryParse(input, out var ret);
