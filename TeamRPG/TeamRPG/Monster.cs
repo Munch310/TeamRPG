@@ -163,7 +163,7 @@ namespace TeamRPG
                     Console.WriteLine($"{monstersList[i].IsDead} \n");
                     Console.ResetColor();
                 }
-                
+
             }
 
             Console.SetCursorPosition(3, 10);
@@ -232,14 +232,12 @@ namespace TeamRPG
                 Console.Clear();
                 UI.DisplayGameUI();
                 Console.SetCursorPosition(2, 23);
-                Console.WriteLine(" [0] 적 차례");
+                Console.WriteLine(" 적 차례");
                 Console.SetCursorPosition(3, 27);
-                Console.Write("행동을 입력해주세요: ");
-                int input = Utility.CheckValidInput(0, 1);
-                if (input == 0)
-                {
-                    EnemyPhase();
-                }
+                Console.Write("아무키를 눌러 적 차례로 진입하십시오");
+                Console.ReadKey();
+                EnemyPhase();
+
             }
         }
 
@@ -282,31 +280,31 @@ namespace TeamRPG
                         Console.WriteLine("치명타가 터졌습니다!");
                         Console.ResetColor();
                     }
-                    Console.SetCursorPosition(3, 7+space);
+                    Console.SetCursorPosition(3, 7 + space);
                     Console.WriteLine($"{MainProgram.player.Name} 의 공격!\n");
-                    Console.SetCursorPosition(3, 9+space);
+                    Console.SetCursorPosition(3, 9 + space);
                     Console.WriteLine($"Lv.{monstersList[selected - 1].Lv} ");
-                    Console.SetCursorPosition(3, 11+space);
+                    Console.SetCursorPosition(3, 11 + space);
                     Console.Write($"{monstersList[selected - 1].Name} 을(를) 맞췄습니다. ");
                     Console.WriteLine($"[데미지 : {damage} ]");
-                    Console.SetCursorPosition(3, 13+space);
+                    Console.SetCursorPosition(3, 13 + space);
                     Console.WriteLine($"Lv.{monstersList[selected - 1].Lv} {monstersList[selected - 1].Name}\n");
                     //Console.Clear();
                     if (monstersList[selected - 1].CurrentHp - damage <= 0)
                     {
-                        Console.SetCursorPosition(3, 15+space);
+                        Console.SetCursorPosition(3, 15 + space);
                         Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].IsDead}");
                         monstersList[selected - 1].CurrentHp = 0;
                     }
                     else
                     {
-                        Console.SetCursorPosition(3, 15+space);
+                        Console.SetCursorPosition(3, 15 + space);
                         Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].CurrentHp -= damage}");
                     }
                 }
                 // --송명근 -- 화면이 바로 전환되지 않고 적에게 준 피해 화면 표시 후 다음 화면 전환
                 Console.SetCursorPosition(3, 27);
-                Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오.");
+                Console.WriteLine("아무키를 눌러 다음화면으로 가십시오.");
                 Console.ReadLine();
             }
             else
@@ -470,7 +468,7 @@ namespace TeamRPG
                 {
                     if (monstersList[i].CurrentHp != 0)
                     {
-                        PlayerAttack(i+1, MainProgram.player.Atk);
+                        PlayerAttack(i + 1, MainProgram.player.Atk);
                     }
                 }
                 // 마나 소모
@@ -570,25 +568,12 @@ namespace TeamRPG
                 Console.SetCursorPosition(34, 5);
                 Console.WriteLine("Battle!");
                 Console.SetCursorPosition(2, 23);
-                Console.WriteLine("[0] 플레이어 차례");
+                Console.WriteLine("플레이어 차례");
                 Console.SetCursorPosition(3, 27);
-                Console.Write("행동을 입력해주세요: ");
-                int input = Utility.CheckValidInput(0, 0);
-                if (input == 0)
-                {
-                    FightInfo();
-                }
-            }
-            else
-            {
-                // 여기는 실행되지 않는 듯 합니다. - 문현우 
-                Console.WriteLine("Game Over...");
-                Console.WriteLine();
-                Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오");
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.ReadLine();
-                MainProgram.DisplayGameIntro();
+                Console.Write("아무키를 눌러 플레이어 차례로 진입하십시오");
+                Console.ReadKey();
+                FightInfo();
+
             }
         }
 
