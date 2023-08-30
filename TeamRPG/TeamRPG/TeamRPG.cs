@@ -60,7 +60,7 @@ namespace TeamRPG
             for (int i = 0; i < monsterCount; i++)
             {
                 Random rand = new Random();
-                int temp = rand.Next(1, 3);
+                int temp = rand.Next(1, 4);
                 if (temp == 1)
                 {
                     monsters.AddMonster2List(new Minion("미니언", 5, 15, 2, "Dead"));
