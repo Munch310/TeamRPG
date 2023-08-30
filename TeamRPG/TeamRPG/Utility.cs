@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
+using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TeamRPG;
 
@@ -37,5 +40,41 @@ namespace TeamRPG
                 }
             }
         }
+        //--------------문현우 Save & Load 추가--------------
+        public static void SaveGameData()
+        {
+            string fileName = "_playerData.json";
+            string userDocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string filePath = Path.Combine(userDocumentsFolder, fileName);
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string playersData = JsonSerializer.Serialize(MainProgram.player, options);
+
+            // 유니코드 -> 한글 변환
+            playersData = Regex.Unescape(playersData);
+
+            File.WriteAllText(filePath, playersData);
+        }
+
+        public static void LoadGameData()
+        {
+            string fimeName = "_playerData.json";
+            string userDocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string filePath = Path.Combine(userDocumentsFolder, fimeName);
+            if(File.Exists(filePath))
+            {
+                string playerJson = File.ReadAllText(filePath);
+                playerJson = Regex.Unescape(playerJson);
+                Character loadedCharacter = JsonSerializer.Deserialize<Character>(playerJson);
+                MainProgram.player = loadedCharacter;
+            }
+            else
+            {
+                // 추후 게임 데이터 설정화면 생기면 이동.
+                Console.WriteLine("데이터가 없습니다.");
+                Thread.Sleep(500);
+                MainProgram.GameDataSetting();
+            }
+        }
+        //----------------------------
     }
 }
