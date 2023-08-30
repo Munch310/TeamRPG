@@ -229,6 +229,8 @@ namespace TeamRPG
             }
             else
             {
+                Console.Clear();
+                UI.DisplayGameUI();
                 Console.SetCursorPosition(2, 23);
                 Console.WriteLine(" [0] 적 차례");
                 Console.SetCursorPosition(3, 27);
@@ -251,45 +253,61 @@ namespace TeamRPG
             if (monstersList[selected - 1].CurrentHp > 0)
             {
                 // 치명타 기능
+                // --송명근 UI 부분 추가--
+                bool isCrit = false;
+                int space = 0;
                 Random rand = new Random();
                 int criticalEvasionCheck = rand.Next(20);
                 if (criticalEvasionCheck <= 3)
                 {
                     damage *= 2;
-                    Console.SetCursorPosition(3, 10);
-                    Console.WriteLine("치명타가 터졌습니다!");
+                    isCrit = true;
+                    space = 2;
                 }
 
                 // 회피할 경우 공격 스킵
                 if (criticalEvasionCheck > 17)
                 {
                     Console.SetCursorPosition(3, 10);
-                    Console.WriteLine("적이 공격을 회피했습니다!");
+                    Console.WriteLine($"{monstersList[selected - 1].Name}이 공격을 회피했습니다!");
+                    Console.SetCursorPosition(3, 12);
+                    Console.WriteLine($"Hp {monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].CurrentHp}");
                 }
                 else
                 {
-                    Console.SetCursorPosition(3, 7);
+                    if (isCrit == true)
+                    {
+                        Console.SetCursorPosition(3, 7);
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("치명타가 터졌습니다!");
+                        Console.ResetColor();
+                    }
+                    Console.SetCursorPosition(3, 7+space);
                     Console.WriteLine($"{MainProgram.player.Name} 의 공격!\n");
-                    Console.SetCursorPosition(3, 9);
+                    Console.SetCursorPosition(3, 9+space);
                     Console.WriteLine($"Lv.{monstersList[selected - 1].Lv} ");
-                    Console.SetCursorPosition(3, 11);
+                    Console.SetCursorPosition(3, 11+space);
                     Console.Write($"{monstersList[selected - 1].Name} 을(를) 맞췄습니다. ");
                     Console.WriteLine($"[데미지 : {damage} ]");
-                    Console.SetCursorPosition(3, 13);
+                    Console.SetCursorPosition(3, 13+space);
                     Console.WriteLine($"Lv.{monstersList[selected - 1].Lv} {monstersList[selected - 1].Name}\n");
                     //Console.Clear();
                     if (monstersList[selected - 1].CurrentHp - damage <= 0)
                     {
-                        Console.SetCursorPosition(3, 15);
+                        Console.SetCursorPosition(3, 15+space);
                         Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].IsDead}");
                         monstersList[selected - 1].CurrentHp = 0;
                     }
                     else
                     {
-                        Console.SetCursorPosition(3, 15);
+                        Console.SetCursorPosition(3, 15+space);
                         Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].CurrentHp -= damage}");
                     }
                 }
+                // --송명근 -- 화면이 바로 전환되지 않고 적에게 준 피해 화면 표시 후 다음 화면 전환
+                Console.SetCursorPosition(2, 23);
+                Console.WriteLine("아무키를 눌러 다음 화면으로 가기");
+                Console.ReadLine();
             }
             else
             {
