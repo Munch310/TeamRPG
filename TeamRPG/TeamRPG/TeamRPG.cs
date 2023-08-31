@@ -261,6 +261,8 @@ namespace TeamRPG
                 {
                     Console.Clear();
                     UI.DisplayGameUI();
+                    Console.SetCursorPosition(35, 2);
+                    Console.WriteLine("[여관]");
                     Console.SetCursorPosition(3, 10);
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("골드가 부족합니다!");
