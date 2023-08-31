@@ -260,6 +260,7 @@ namespace TeamRPG
                 if (player.Gold < 500)
                 {
                     Console.Clear();
+                    UI.DisplayGameUI();
                     Console.SetCursorPosition(3, 10);
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("골드가 부족합니다!");
