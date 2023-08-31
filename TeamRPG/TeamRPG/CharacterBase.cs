@@ -59,7 +59,7 @@ namespace TeamRPG
         public int Exp { get; set; }
 
         // 필요 경험치
-        public int? needExp { get; set; }
+        public int needExp { get; set; }
         // -----
 
         // ---------- Song ---------------
@@ -93,6 +93,8 @@ namespace TeamRPG
             Lv++;
             Atk += 1;
             Def += 1;
+
+            SetNeedExp(Lv);
         }
 
         /// <summary>
@@ -120,7 +122,7 @@ namespace TeamRPG
                     break;
 
                 default:
-                    needExp = null;
+                    //needExp = null;
                     break;
             }
         }
@@ -132,8 +134,8 @@ namespace TeamRPG
         /// 
         public void GetExp(int amount)
         {
-            if (needExp == null)
-                Console.WriteLine("더 이상 경험치를 얻을 수 없습니다.");
+            //if (needExp == null)
+            //    Console.WriteLine("더 이상 경험치를 얻을 수 없습니다.");
 
             Exp += amount;
 
@@ -156,10 +158,14 @@ namespace TeamRPG
 
     class Minion : CharacterBase
     {
-
         public Minion(string name, int atk, int hp, int lv, string isDead) : base(name, atk, lv, hp, isDead)
         {
             CurrentHp = hp;
+
+            //// ----- 김형수 -----
+            //// 테스트용 체력
+            //CurrentHp = 1;
+            //// -----
         }
 
     }
@@ -169,6 +175,12 @@ namespace TeamRPG
         public CanonMinion(string name, int atk, int hp, int lv, string isDead) : base(name, atk, lv, hp, isDead)
         {
             CurrentHp = hp;
+
+            //// -----김형수-----
+            //// 테스트용 HP 값 설정
+            //CurrentHp = 1;
+            //// -----------
+
         }
     }
 
@@ -177,6 +189,12 @@ namespace TeamRPG
         public VoidMinion(string name, int atk, int hp, int lv, string isDead) : base(name, atk, lv, hp, isDead)
         {
             CurrentHp = hp;
+
+            //// -----김형수-----
+            //// 테스트용 HP 값 설정
+            //CurrentHp = 1;
+            //// -----------
+
         }
     }
 

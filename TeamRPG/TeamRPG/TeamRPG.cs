@@ -98,34 +98,48 @@ namespace TeamRPG
             //    monstersList[i].CurrentHp = monstersList[i].Hp;
             //}
             UI.DisplayGameUI();
+            UI.DIsplayGameTitle();
+
             Console.SetCursorPosition(2, 23);
-            Console.Write(" [1] 상태보기 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [0] ");
+            Console.ResetColor();
+            Console.Write("게임 종료 ");
             Console.SetCursorPosition(24, 23);
-            Console.Write(" [2] 인벤토리 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [1] ");
+            Console.ResetColor();
+            Console.Write("상태보기 ");
             Console.SetCursorPosition(48, 23);
-            Console.Write(" [3] 전투 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [2] ");
+            Console.ResetColor();
+            Console.Write("전투 ");
             Console.SetCursorPosition(68, 23);
-            Console.Write(" [4] 여관 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [3] ");
+            Console.ResetColor();
+            Console.Write("여관 ");
             Console.SetCursorPosition(3, 27);
             Console.Write("숫자를 입력해주세요: ");
             int input = Utility.CheckValidInput(1, 3);
 
-            if (input == 1)
+            if (input == 0)
             {
                 Console.SetCursorPosition(3, 27);
-                Console.WriteLine("상태보기 창으로 이동합니다.");
+                Console.WriteLine("TEAM RPG를 종료합니다.");
+                Thread.Sleep(300);
+                Environment.Exit(0);
+            }
+            else if (input == 1)
+            {
+                Console.SetCursorPosition(3, 27);
+                Console.WriteLine("상태창으로 이동합니다.");
                 Thread.Sleep(300);
                 DisplayMyInfo();
             }
-            else if (input == 2)
-            {
-                Console.SetCursorPosition(3, 27);
-                Console.WriteLine("미구현");
-                Thread.Sleep(300);
-                DisplayGameIntro();
-            }
             //--------------정재호 전투추가--------------
-            else if (input == 3)
+            else if (input == 2)
             {
                 Console.SetCursorPosition(3, 27);
                 Console.WriteLine("던전으로 이동합니다.");
@@ -133,7 +147,7 @@ namespace TeamRPG
                 Monsters.FightInfo();
             }
             //---------------------------------------------
-            else if (input == 4)
+            else if (input == 3)
             {
                 Console.SetCursorPosition(3, 27);
                 Console.WriteLine("여관으로 이동합니다.");
@@ -155,12 +169,15 @@ namespace TeamRPG
             Console.Clear();
 
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
+            Console.SetCursorPosition(32, 2);
             Console.WriteLine("[상태보기]");
-            Console.SetCursorPosition(26, 6);
+            Console.SetCursorPosition(24, 6);
             Console.WriteLine("캐릭터의 정보를 표시합니다.");
             Console.SetCursorPosition(2, 23);
-            Console.WriteLine(" [0] 나가기 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [0] ");
+            Console.ResetColor();
+            Console.Write("나가기");
             Console.SetCursorPosition(6, 7);
             Console.Write($"Lv.{player.Lv}");
             Console.SetCursorPosition(6, 9);
@@ -200,18 +217,16 @@ namespace TeamRPG
         {
             Console.Clear();
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
+            Console.SetCursorPosition(35, 2);
             Console.WriteLine("[여관]");
-            Console.SetCursorPosition(26, 6);
-            Console.WriteLine("이곳에서 휴식을 취할 수 있습니다.");
-            Console.SetCursorPosition(6, 7);
-            Console.Write($"Lv.{player.Lv}");
-            Console.SetCursorPosition(6, 9);
-            Console.WriteLine($"{player.Name}({player.Job})");
+            Console.SetCursorPosition(15, 6);
+            Console.WriteLine("휴식을 취할 경우, 체력과 마나를 50 회복합니다.");
+            Console.SetCursorPosition(17, 9);
+            Console.WriteLine("또한, 현재 플레이어 데이터가 저장됩니다.");
             Console.SetCursorPosition(6, 11);
-            Console.WriteLine($"공격력 :{player.Atk}");
+            Console.Write($"Lv.{player.Lv}");
             Console.SetCursorPosition(6, 13);
-            Console.WriteLine($"방어력 : {player.Def}");
+            Console.WriteLine($"{player.Name}({player.Job})");
             Console.SetCursorPosition(6, 15);
             Console.WriteLine($"체력 : {player.CurrentHp} / {player.Hp}");
             Console.SetCursorPosition(6, 17);
@@ -219,9 +234,15 @@ namespace TeamRPG
             Console.SetCursorPosition(6, 19);
             Console.WriteLine($"Gold : {player.Gold} G");
             Console.SetCursorPosition(2, 23);
-            Console.WriteLine(" [0] 나가기 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [0] ");
+            Console.ResetColor();
+            Console.Write("나가기");
             Console.SetCursorPosition(24, 23);
-            Console.Write(" [1] 휴식 취하기 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [1] ");
+            Console.ResetColor();
+            Console.Write("휴식 취하기");
             Console.SetCursorPosition(3, 27);
             Console.Write("숫자를 입력해주세요: ");
 
@@ -242,11 +263,13 @@ namespace TeamRPG
                 Console.SetCursorPosition(3, 12);
                 Console.Write($"Hp {player.CurrentHp}");
                 player.CurrentHp += 50;
+                
                 if (player.CurrentHp > player.Hp)
                 {
                     player.CurrentHp = player.Hp;
                 }
                 Console.WriteLine($" -> {player.CurrentHp}");
+
                 Console.SetCursorPosition(3, 14);
                 Console.Write($"Mp {player.CurrentMp}");
                 player.CurrentMp += 50;
@@ -256,12 +279,11 @@ namespace TeamRPG
                 }
                 Console.WriteLine($" -> {player.CurrentMp}");
                 Console.SetCursorPosition(3, 14);
-                Console.WriteLine($"Mp  {player.CurrentMp}");
-                Thread.Sleep(300);
+                Thread.Sleep(500);
                 Utility.SaveGameData();
                 Console.SetCursorPosition(3, 27);
                 Console.WriteLine("저장이 완료되었습니다.");
-                Thread.Sleep(400);
+                Thread.Sleep(500);
                 DisplayGameIntro();
             }
             else

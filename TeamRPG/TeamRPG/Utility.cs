@@ -43,15 +43,19 @@ namespace TeamRPG
         //--------------문현우 Save & Load 추가--------------
         public static void SaveGameData()
         {
+            // 파일 이름 설정 _playerData.json
             string fileName = "_playerData.json";
+            // 파일 저장 경로 설정
             string userDocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            // 파일 저장 경로 + 파일 이름 C:\Users\XXXX\Documents\_playerData.json) 
             string filePath = Path.Combine(userDocumentsFolder, fileName);
+            // Json 형식 정렬
             var options = new JsonSerializerOptions { WriteIndented = true };
+            // Json 직렬화
             string playersData = JsonSerializer.Serialize(MainProgram.player, options);
-
             // 유니코드 -> 한글 변환
             playersData = Regex.Unescape(playersData);
-
+            // 파일 생성
             File.WriteAllText(filePath, playersData);
         }
 

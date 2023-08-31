@@ -42,23 +42,23 @@ namespace TeamRPG
             Console.Clear();
 
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("Battle!");
+            Console.SetCursorPosition(35, 2);
+            Console.WriteLine("[전투]");
 
             for (int i = 0; i < monstersList.Count; i++)
             {
                 if (monstersList[i].CurrentHp > 0)
                 {
-                    sb.Append($"Lv.{monstersList[i].Lv} ");
-                    sb.Append($"{monstersList[i].Name} ");
-                    sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
-                    Console.SetCursorPosition(3 + (i * 27), 7);
-                    Console.WriteLine(sb);
-                    sb.Clear();
+                    Console.SetCursorPosition(2 + (i * 26), 7);
+                    Console.Write($"Lv.{monstersList[i].Lv} ");
+                    Console.Write($"{monstersList[i].Name} ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"HP {monstersList[i].CurrentHp}" + "\n");
+                    Console.ResetColor();
                 }
                 else if (monstersList[i].CurrentHp <= 0)
                 {
-                    Console.SetCursorPosition(3 + (i * 27), 7);
+                    Console.SetCursorPosition(2 + (i * 26), 7);
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.Write($"Lv.{monstersList[i].Lv} ");
@@ -89,13 +89,22 @@ namespace TeamRPG
 
 
             Console.SetCursorPosition(2, 23);
-            Console.WriteLine(" [1] 공격 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [1] ");
+            Console.ResetColor();
+            Console.WriteLine("공격 ");
             // ---------- Song 스킬추가 ---------------
             Console.SetCursorPosition(24, 23);
-            Console.WriteLine(" [2] 스킬 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [2] ");
+            Console.ResetColor();
+            Console.WriteLine("스킬 ");
             // ---------- Song ---------------
             Console.SetCursorPosition(48, 23);
-            Console.WriteLine(" [0] 도망가기 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [0] ");
+            Console.ResetColor();
+            Console.WriteLine("도망가기 ");
             Console.SetCursorPosition(3, 27);
             Console.Write("숫자를 입력해주세요: ");
 
@@ -137,24 +146,26 @@ namespace TeamRPG
         {
             Console.Clear();
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("Battle!");
+            Console.SetCursorPosition(32, 2);
+            Console.WriteLine("[기본 공격]");
 
             for (int i = 0; i < monstersList.Count; i++)
             {
                 if (monstersList[i].CurrentHp > 0)
                 {
-                    sb.Append($"[{i + 1}] ");
-                    sb.Append($"Lv.{monstersList[i].Lv} ");
-                    sb.Append($"{monstersList[i].Name} ");
-                    sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
-                    Console.SetCursorPosition(2 + (i * 27), 7);
-                    Console.WriteLine(sb);
-                    sb.Clear();
+                    Console.SetCursorPosition(2 + (i * 26), 7);
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write($"[{i + 1}] ");
+                    Console.ResetColor();
+                    Console.Write($"Lv.{monstersList[i].Lv} ");
+                    Console.Write($"{monstersList[i].Name} ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"HP {monstersList[i].CurrentHp}" + "\n");
+                    Console.ResetColor();
                 }
                 else if (monstersList[i].CurrentHp <= 0)
                 {
-                    Console.SetCursorPosition(2 + (i * 27), 7);
+                    Console.SetCursorPosition(2 + (i * 26), 7);
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.Write($"[{i + 1}] ");
@@ -185,7 +196,10 @@ namespace TeamRPG
             sbClear();
 
             Console.SetCursorPosition(2, 23);
-            Console.WriteLine(" [0] 돌아가기 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [0] ");
+            Console.ResetColor();
+            Console.WriteLine("돌아가기");
             Console.SetCursorPosition(3, 27);
             Console.Write("대상을 입력해주세요: ");
 
@@ -218,10 +232,62 @@ namespace TeamRPG
             {
                 Console.Clear();
                 UI.DisplayGameUI();
-                Console.SetCursorPosition(30, 5);
-                Console.WriteLine("Battle!! - Result");
+                Console.SetCursorPosition(35, 2);
+                Console.WriteLine("[결과]");
                 Console.SetCursorPosition(30, 6);
                 Console.WriteLine("Victory!");
+
+                // -----김형수-----
+
+                //saveCurrentHp = MainProgram.player.CurrentHp;
+                //MainProgram.player.CurrentHp -= monsDmg;
+
+                int previousLv = MainProgram.player.Lv;
+                int previousHp = MainProgram.player.Hp;
+                int previousExp = MainProgram.player.Exp;
+                int previousGold = MainProgram.player.Gold;
+
+                int totalMonstersExp = 0;
+                int totalMonstersGold = monstersList.Count * 100;
+
+                for (int i = 0; i < monstersList.Count; i++)
+                {
+                    totalMonstersExp += monstersList[i].Lv;
+                }
+
+                MainProgram.player.GetExp(totalMonstersExp);
+
+                int currentLv = MainProgram.player.Lv;
+                int currentHp = MainProgram.player.CurrentHp;
+                int currentExp = MainProgram.player.Exp + totalMonstersExp;
+                int currentGold = MainProgram.player.Gold + totalMonstersGold;
+
+                int cursorPositionX = 6;
+                int cursorPositionY = 7;
+
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 2);
+                Console.WriteLine($"던전에서 몬스터 {monstersList.Count}마리를 잡았습니다.");
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 2);
+                Console.WriteLine("[캐릭터 정보]");
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
+                Console.WriteLine($"{MainProgram.player.Name}");
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
+                Console.WriteLine($"Lv.{previousLv} -> Lv.{currentLv}");
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
+                Console.WriteLine($"HP {previousHp} -> {currentHp} ");
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
+                Console.WriteLine($"exp {previousExp} -> {currentExp} ");
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 2); ;
+                Console.WriteLine("[획득 아이템]");
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
+                Console.WriteLine($"{previousGold} -> {currentGold} Gold");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+
+                MainProgram.player.Gold = currentGold;
+                //----------
+
                 Console.SetCursorPosition(3, 27);
                 Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오");
                 Console.ReadLine();
@@ -246,8 +312,8 @@ namespace TeamRPG
         {
             Console.Clear();
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("Battle!");
+            Console.SetCursorPosition(35, 2);
+            Console.WriteLine("[공격]");
             if (monstersList[selected - 1].CurrentHp > 0)
             {
                 // 치명타 기능
@@ -322,24 +388,26 @@ namespace TeamRPG
         {
             Console.Clear();
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("Battle!");
+            Console.SetCursorPosition(35, 2);
+            Console.WriteLine("[스킬]");
 
             for (int i = 0; i < monstersList.Count; i++)
             {
                 if (monstersList[i].CurrentHp > 0)
                 {
-                    sb.Append($"[{i + 1}] ");
-                    sb.Append($"Lv.{monstersList[i].Lv} ");
-                    sb.Append($"{monstersList[i].Name} ");
-                    sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
-                    Console.SetCursorPosition(3 + (i * 27), 7);
-                    Console.WriteLine(sb);
-                    sb.Clear();
+                    Console.SetCursorPosition(2 + (i * 26), 7);
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write($"[{i + 1}] ");
+                    Console.ResetColor();
+                    Console.Write($"Lv.{monstersList[i].Lv} ");
+                    Console.Write($"{monstersList[i].Name} ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"HP {monstersList[i].CurrentHp}" + "\n");
+                    Console.ResetColor();
                 }
                 else if (monstersList[i].CurrentHp <= 0)
                 {
-                    Console.SetCursorPosition(3 + (i * 27), 7);
+                    Console.SetCursorPosition(2 + (i * 26), 7);
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.Write($"Lv.{monstersList[i].Lv} ");
@@ -369,12 +437,18 @@ namespace TeamRPG
             sbClear();
 
             Console.SetCursorPosition(1, 22);
-            Console.WriteLine(" [0] 돌아가기 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [0] ");
+            Console.ResetColor();
+            Console.WriteLine("돌아가기 ");
 
             for (int i = 0; i < MainProgram.player.skills.Count; i++)
             {
                 Console.SetCursorPosition(2, 23 + i);
-                Console.Write($"[{i + 1}] {MainProgram.player.skills[i].Name} | MP {MainProgram.player.skills[i].MpConsume} ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"[{i + 1}] ");
+                Console.ResetColor();
+                Console.Write($"{MainProgram.player.skills[i].Name} | MP {MainProgram.player.skills[i].MpConsume} ");
                 Console.WriteLine($"| {MainProgram.player.skills[i].Description}");
             }
 
@@ -498,8 +572,8 @@ namespace TeamRPG
 
             Console.Clear();
             UI.DisplayGameUI();
-            Console.SetCursorPosition(34, 5);
-            Console.WriteLine("Battle!");
+            Console.SetCursorPosition(35, 2);
+            Console.WriteLine("[몬스터 턴]");
 
 
 
@@ -514,11 +588,9 @@ namespace TeamRPG
                     }
                     Console.Clear();
                     UI.DisplayGameUI();
-                    Console.SetCursorPosition(34, 5);
-                    Console.WriteLine("Battle!");
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.SetCursorPosition(3, 7);
+                    Console.SetCursorPosition(35, 2);
                     Console.Write("[ 몬스터 턴 ]");
                     Console.ResetColor();
 
@@ -540,12 +612,16 @@ namespace TeamRPG
                         Console.WriteLine($"HP {saveCurrentHp} -> 0");
                         Console.Clear();
                         UI.DisplayGameUI();
-                        Console.SetCursorPosition(30, 5);
-                        Console.WriteLine("Battle!! - Result");
+                        Console.SetCursorPosition(35, 2);
+                        Console.WriteLine("[사망]");
                         Console.SetCursorPosition(30, 9);
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Game Over...");
+                        Console.ResetColor();
                         Console.SetCursorPosition(3, 27);
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오.");
+                        Console.ResetColor();
                         Console.ReadLine();
                         Environment.Exit(0);
                         //캐릭터생성부로 돌아가는 함수();
@@ -565,12 +641,12 @@ namespace TeamRPG
                 }
                 Console.Clear();
                 UI.DisplayGameUI();
-                Console.SetCursorPosition(34, 5);
-                Console.WriteLine("Battle!");
-                Console.SetCursorPosition(2, 23);
-                Console.WriteLine("플레이어 차례");
+                Console.SetCursorPosition(32, 2);
+                Console.WriteLine("[플레이어 턴]");
                 Console.SetCursorPosition(3, 27);
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write("아무키를 눌러 플레이어 차례로 진입하십시오");
+                Console.ResetColor();
                 Console.ReadKey();
                 FightInfo();
 
