@@ -162,6 +162,11 @@ namespace TeamRPG
         public Minion(string name, int atk, int hp, int lv, string isDead) : base(name, atk, lv, hp, isDead)
         {
             CurrentHp = hp;
+
+            //// ----- 김형수 -----
+            //// 테스트용 체력
+            //CurrentHp = 1;
+            //// -----
         }
 
     }
@@ -171,6 +176,11 @@ namespace TeamRPG
         public CanonMinion(string name, int atk, int hp, int lv, string isDead) : base(name, atk, lv, hp, isDead)
         {
             CurrentHp = hp;
+
+            //// ----- 김형수 -----
+            //// 테스트용 체력
+            //CurrentHp = 1;
+            //// -----
         }
     }
 
@@ -179,6 +189,11 @@ namespace TeamRPG
         public VoidMinion(string name, int atk, int hp, int lv, string isDead) : base(name, atk, lv, hp, isDead)
         {
             CurrentHp = hp;
+
+            //// ----- 김형수 -----
+            //// 테스트용 체력
+            //CurrentHp = 1;
+            //// -----
         }
     }
 

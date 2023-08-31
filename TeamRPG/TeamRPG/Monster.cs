@@ -222,6 +222,11 @@ namespace TeamRPG
                 Console.WriteLine("[결과]");
                 Console.SetCursorPosition(30, 6);
                 Console.WriteLine("Victory!");
+                // ----- 김형수 -----
+
+                Console.WriteLine($"던전에서 몬스터 n마리를 잡았습니다.");
+
+                // -----
                 Console.SetCursorPosition(3, 27);
                 Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오");
                 Console.ReadLine();
