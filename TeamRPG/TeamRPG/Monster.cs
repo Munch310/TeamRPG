@@ -257,7 +257,7 @@ namespace TeamRPG
                 Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
                 Console.WriteLine($"HP {previousHp} -> {currentHp} ");
                 Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
-                Console.WriteLine("exp"); /*Console.WriteLine($"exp {previousExp} -> {currentExp} ");*/
+                Console.WriteLine($"exp {previousExp} -> {currentExp} ");
                 Console.SetCursorPosition(CursorPositionX, CursorPositionY += 2); ;
                 Console.WriteLine("[획득 아이템]");
                 Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
