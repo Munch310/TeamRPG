@@ -11,6 +11,11 @@ namespace TeamRPG
     internal class MainProgram
     {
         public static Character player;
+        //by doham : Jobs Data Dictionary
+        public static Dictionary<string, Character> JobsDic = new Dictionary<string, Character>();
+        static string getName = "";
+        static bool isCreate = false; // 죽으면 false;
+        //---------
 
         public static Monsters monsters;
         public static List<CharacterBase> monstersList; //Monsters Class의 monsterList가져옴
@@ -37,7 +42,9 @@ namespace TeamRPG
         {
             // 캐릭터 정보 세팅
             //player = new Character("Chad", "전사", 1, 10, 5, 100, 1500, "Dead", 50);
-            player = new Character("Deliki", "마법사", 1, 8, 3, 80, 1500, "Dead", 80);
+            //by doham
+            JobsDic.Add("전사", new Character("Chad", "전사", 1, 10, 5, 100, 1500, "Dead", 50));
+            JobsDic.Add("마법사", new Character("Deliki", "마법사", 1, 8, 3, 80, 1500, "Dead", 80));
 
             // -------송명근 스킬 추가 방식 ----------//
             // 나중에 캐릭터 생성 구현 시 if (전사) { player에 전사 스킬 추가 }
@@ -49,14 +56,98 @@ namespace TeamRPG
             //player.AddSkill(SkillList.doubleStrike);
 
             // 마법사
-            player.AddSkill(SkillList.thunderVolt);
-            player.AddSkill(SkillList.heal);
+            //player.AddSkill(SkillList.thunderVolt);
+            //player.AddSkill(SkillList.heal);
 
             // 아이템 정보 세팅
 
 
 
             //-------------------------------------
+        }
+
+
+        public static void DisplayCreateCharacter()
+        {
+            //------박도현 캐릭터 생성 / 직업 선택----------
+            //
+            //이름을 적어주세요. (아무것도 없을 경우 디폴트)
+            //이름을 적지 않는경우 안넘어가게 만들 수도 있음.
+            /* Console.SetCursorPosition(3, 23);
+             Console.WriteLine("당신의 이름은 무엇인가요? ");
+             Console.SetCursorPosition(3, 27);*/
+           
+            bool check = true;
+            do
+            {
+                if (getName == null || getName == "")
+                {
+                    Console.SetCursorPosition(3, 23);
+                    Console.WriteLine("당신의 이름은 무엇인가요? ");
+                    Console.SetCursorPosition(3, 27);
+                    getName = Console.ReadLine();
+                }
+                else
+                {
+                    check = false;
+                }
+            } while (check);
+
+            //게임오버 게임 캐릭터 생성..
+
+            //선택한 이름 보여주기
+
+            Console.SetCursorPosition(3, 27);
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(3, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth / 2));
+            Console.SetCursorPosition(3, currentLineCursor - 1);
+
+            Console.SetCursorPosition(3, 23);
+            Console.SetCursorPosition(3, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth / 2));
+            Console.SetCursorPosition(3, currentLineCursor - 1);
+            Console.SetCursorPosition(3, 23);
+            Console.WriteLine($"당신은 {getName} 이군요.");
+            Thread.Sleep(2000);
+
+            DisplayGetJob();
+
+
+        }
+
+        public static void DisplayGetJob()
+        {
+            //직업을 선택해주세요.
+            Console.SetCursorPosition(3, 27);
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(3, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth / 2));
+            Console.SetCursorPosition(3, currentLineCursor - 1);
+
+            Console.SetCursorPosition(3, 23);
+            Console.WriteLine("당신의 직업을 선택해주세요. 전사 [1] | 마법사 [2] ");
+            Console.SetCursorPosition(3, 27);
+            int input = Utility.CheckValidInput(1, 2);
+            if (input == 1)//전사
+            {
+                player = new Character(JobsDic["전사"].Name, JobsDic["전사"].Job, JobsDic["전사"].Lv, JobsDic["전사"].Atk, JobsDic["전사"].Def, JobsDic["전사"].Hp, JobsDic["전사"].Gold, JobsDic["전사"].IsDead, JobsDic["전사"].Mp);
+            }
+            else if (input == 2)//마법사
+            {
+                player = new Character(JobsDic["마법사"].Name, JobsDic["마법사"].Job, JobsDic["마법사"].Lv, JobsDic["마법사"].Atk, JobsDic["마법사"].Def, JobsDic["마법사"].Hp, JobsDic["마법사"].Gold, JobsDic["마법사"].IsDead, JobsDic["마법사"].Mp);
+            }
+            else
+            {
+                DisplayGetJob();
+            }
+            player.Name = getName;
+            isCreate = true;
+            Console.Clear();
+            UI.DisplayGameUI();
+
+
+            //캐릭터 생성 끝.
         }
 
         public static void DisplayGameIntro()
@@ -98,6 +189,9 @@ namespace TeamRPG
             //    monstersList[i].CurrentHp = monstersList[i].Hp;
             //}
             UI.DisplayGameUI();
+            if(isCreate == false)
+            { DisplayCreateCharacter(); }
+            
             UI.DIsplayGameTitle();
 
             Console.SetCursorPosition(2, 23);
