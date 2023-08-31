@@ -181,7 +181,12 @@ namespace TeamRPG
             Console.SetCursorPosition(6, 7);
             Console.Write($"Lv.{player.Lv}");
             Console.SetCursorPosition(6, 9);
-            Console.WriteLine($"{player.Name}({player.Job})");
+            Console.ForegroundColor= ConsoleColor.Magenta;
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.WriteLine($" {player.Name} ");
+            Console.ResetColor();
+            Console.SetCursorPosition(15, 9);
+            Console.Write($"({player.Job})");
             Console.SetCursorPosition(6, 11);
             Console.WriteLine($"공격력 :{player.Atk}");
             Console.SetCursorPosition(6, 13);
