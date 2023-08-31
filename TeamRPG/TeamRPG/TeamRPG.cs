@@ -14,7 +14,7 @@ namespace TeamRPG
         //by doham : Jobs Data Dictionary
         public static Dictionary<string, Character> JobsDic = new Dictionary<string, Character>();
         static string getName = "";
-        static bool isCreate = false; // 죽으면 false;
+        public static bool isCreate = false; // 죽으면 false;
         //---------
 
         public static Monsters monsters;
@@ -69,6 +69,8 @@ namespace TeamRPG
 
         public static void DisplayCreateCharacter()
         {
+            Console.Clear();
+            UI.DisplayGameUI();
             //------박도현 캐릭터 생성 / 직업 선택----------
             //
             //이름을 적어주세요. (아무것도 없을 경우 디폴트)
@@ -132,10 +134,14 @@ namespace TeamRPG
             if (input == 1)//전사
             {
                 player = new Character(JobsDic["전사"].Name, JobsDic["전사"].Job, JobsDic["전사"].Lv, JobsDic["전사"].Atk, JobsDic["전사"].Def, JobsDic["전사"].Hp, JobsDic["전사"].Gold, JobsDic["전사"].IsDead, JobsDic["전사"].Mp);
+                player.AddSkill(SkillList.alphaStrike);
+                player.AddSkill(SkillList.doubleStrike);
             }
             else if (input == 2)//마법사
             {
                 player = new Character(JobsDic["마법사"].Name, JobsDic["마법사"].Job, JobsDic["마법사"].Lv, JobsDic["마법사"].Atk, JobsDic["마법사"].Def, JobsDic["마법사"].Hp, JobsDic["마법사"].Gold, JobsDic["마법사"].IsDead, JobsDic["마법사"].Mp);
+                player.AddSkill(SkillList.thunderVolt);
+                player.AddSkill(SkillList.heal);
             }
             else
             {
