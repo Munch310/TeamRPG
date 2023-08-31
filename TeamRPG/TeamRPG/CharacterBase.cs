@@ -90,10 +90,10 @@ namespace TeamRPG
 
         public void LvUp()
         {
+            Exp -= needExp;
             Lv++;
             Atk += 1;
             Def += 1;
-
             SetNeedExp(Lv);
         }
 
@@ -142,11 +142,9 @@ namespace TeamRPG
             //// 필요 경험치: 레벨 * 1000 
             //long needExp = Lv * 1000;
 
-            while (Exp >= needExp)
+            if (Exp >= needExp)
             {
                 LvUp();
-
-                Exp = 0;
             }
         }
 
