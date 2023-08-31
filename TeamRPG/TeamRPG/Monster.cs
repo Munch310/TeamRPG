@@ -49,16 +49,16 @@ namespace TeamRPG
             {
                 if (monstersList[i].CurrentHp > 0)
                 {
-                    sb.Append($"Lv.{monstersList[i].Lv} ");
-                    sb.Append($"{monstersList[i].Name} ");
-                    sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
-                    Console.SetCursorPosition(3 + (i * 27), 7);
-                    Console.WriteLine(sb);
-                    sb.Clear();
+                    Console.SetCursorPosition(2 + (i * 26), 7);
+                    Console.Write($"Lv.{monstersList[i].Lv} ");
+                    Console.Write($"{monstersList[i].Name} ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"HP {monstersList[i].CurrentHp}" + "\n");
+                    Console.ResetColor();
                 }
                 else if (monstersList[i].CurrentHp <= 0)
                 {
-                    Console.SetCursorPosition(3 + (i * 27), 7);
+                    Console.SetCursorPosition(2 + (i * 26), 7);
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.Write($"Lv.{monstersList[i].Lv} ");
@@ -89,13 +89,22 @@ namespace TeamRPG
 
 
             Console.SetCursorPosition(2, 23);
-            Console.WriteLine(" [1] 공격 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [1] ");
+            Console.ResetColor();
+            Console.WriteLine("공격 ");
             // ---------- Song 스킬추가 ---------------
             Console.SetCursorPosition(24, 23);
-            Console.WriteLine(" [2] 스킬 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [2] ");
+            Console.ResetColor();
+            Console.WriteLine("스킬 ");
             // ---------- Song ---------------
             Console.SetCursorPosition(48, 23);
-            Console.WriteLine(" [0] 도망가기 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [0] ");
+            Console.ResetColor();
+            Console.WriteLine("도망가기 ");
             Console.SetCursorPosition(3, 27);
             Console.Write("숫자를 입력해주세요: ");
 
@@ -144,17 +153,19 @@ namespace TeamRPG
             {
                 if (monstersList[i].CurrentHp > 0)
                 {
-                    sb.Append($"[{i + 1}] ");
-                    sb.Append($"Lv.{monstersList[i].Lv} ");
-                    sb.Append($"{monstersList[i].Name} ");
-                    sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
-                    Console.SetCursorPosition(2 + (i * 27), 7);
-                    Console.WriteLine(sb);
-                    sb.Clear();
+                    Console.SetCursorPosition(2 + (i * 26), 7);
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write($"[{i + 1}] ");
+                    Console.ResetColor();
+                    Console.Write($"Lv.{monstersList[i].Lv} ");
+                    Console.Write($"{monstersList[i].Name} ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"HP {monstersList[i].CurrentHp}" + "\n");
+                    Console.ResetColor();
                 }
                 else if (monstersList[i].CurrentHp <= 0)
                 {
-                    Console.SetCursorPosition(2 + (i * 27), 7);
+                    Console.SetCursorPosition(2 + (i * 26), 7);
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.Write($"[{i + 1}] ");
@@ -185,7 +196,10 @@ namespace TeamRPG
             sbClear();
 
             Console.SetCursorPosition(2, 23);
-            Console.WriteLine(" [0] 돌아가기 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [0] ");
+            Console.ResetColor();
+            Console.WriteLine("돌아가기");
             Console.SetCursorPosition(3, 27);
             Console.Write("대상을 입력해주세요: ");
 
@@ -329,17 +343,19 @@ namespace TeamRPG
             {
                 if (monstersList[i].CurrentHp > 0)
                 {
-                    sb.Append($"[{i + 1}] ");
-                    sb.Append($"Lv.{monstersList[i].Lv} ");
-                    sb.Append($"{monstersList[i].Name} ");
-                    sb.Append($"HP {monstersList[i].CurrentHp}" + "\n");
-                    Console.SetCursorPosition(3 + (i * 27), 7);
-                    Console.WriteLine(sb);
-                    sb.Clear();
+                    Console.SetCursorPosition(2 + (i * 26), 7);
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write($"[{i + 1}] ");
+                    Console.ResetColor();
+                    Console.Write($"Lv.{monstersList[i].Lv} ");
+                    Console.Write($"{monstersList[i].Name} ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"HP {monstersList[i].CurrentHp}" + "\n");
+                    Console.ResetColor();
                 }
                 else if (monstersList[i].CurrentHp <= 0)
                 {
-                    Console.SetCursorPosition(3 + (i * 27), 7);
+                    Console.SetCursorPosition(2 + (i * 26), 7);
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.Write($"Lv.{monstersList[i].Lv} ");
@@ -369,12 +385,18 @@ namespace TeamRPG
             sbClear();
 
             Console.SetCursorPosition(1, 22);
-            Console.WriteLine(" [0] 돌아가기 ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" [0] ");
+            Console.ResetColor();
+            Console.WriteLine("돌아가기 ");
 
             for (int i = 0; i < MainProgram.player.skills.Count; i++)
             {
                 Console.SetCursorPosition(2, 23 + i);
-                Console.Write($"[{i + 1}] {MainProgram.player.skills[i].Name} | MP {MainProgram.player.skills[i].MpConsume} ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"[{i + 1}] ");
+                Console.ResetColor();
+                Console.Write($"{MainProgram.player.skills[i].Name} | MP {MainProgram.player.skills[i].MpConsume} ");
                 Console.WriteLine($"| {MainProgram.player.skills[i].Description}");
             }
 
@@ -541,9 +563,13 @@ namespace TeamRPG
                         Console.SetCursorPosition(35, 2);
                         Console.WriteLine("[사망]");
                         Console.SetCursorPosition(30, 9);
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Game Over...");
+                        Console.ResetColor();
                         Console.SetCursorPosition(3, 27);
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오.");
+                        Console.ResetColor();
                         Console.ReadLine();
                         Environment.Exit(0);
                         //캐릭터생성부로 돌아가는 함수();
@@ -566,7 +592,9 @@ namespace TeamRPG
                 Console.SetCursorPosition(32, 2);
                 Console.WriteLine("[플레이어 턴]");
                 Console.SetCursorPosition(3, 27);
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write("아무키를 눌러 플레이어 차례로 진입하십시오");
+                Console.ResetColor();
                 Console.ReadKey();
                 FightInfo();
 
