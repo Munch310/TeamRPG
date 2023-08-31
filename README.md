@@ -41,6 +41,6 @@ C# Text TEAM RPG GAME
 - 휴식
 - 게임 데이터 저장
 
-#### 추가 기능 및 UI - <a href="https://github.com/Munch310/SpartaDungeon/wiki/8.-%EC%B6%94%EA%B0%80-%EA%B8%B0%EB%8A%A5" >상세보기 - WIKI 이동</a> 
+#### 추가 기능 & UI - <a href="https://github.com/Munch310/SpartaDungeon/wiki/8.-%EC%B6%94%EA%B0%80-%EA%B8%B0%EB%8A%A5" >상세보기 - WIKI 이동</a> 
 - 입력값 검사
 - UI
