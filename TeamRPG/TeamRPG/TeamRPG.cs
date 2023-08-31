@@ -219,8 +219,8 @@ namespace TeamRPG
             UI.DisplayGameUI();
             Console.SetCursorPosition(35, 2);
             Console.WriteLine("[여관]");
-            Console.SetCursorPosition(15, 6);
-            Console.WriteLine("휴식을 취할 경우, 체력과 마나를 50 회복합니다.");
+            Console.SetCursorPosition(10, 6);
+            Console.WriteLine("휴식을 취할 경우, 500G를 사용하여 체력과 마나를 50 회복합니다."); // 골드 사용
             Console.SetCursorPosition(17, 9);
             Console.WriteLine("또한, 현재 플레이어 데이터가 저장됩니다.");
             Console.SetCursorPosition(6, 11);
@@ -242,7 +242,7 @@ namespace TeamRPG
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(" [1] ");
             Console.ResetColor();
-            Console.Write("휴식 취하기");
+            Console.Write("휴식 취하기(500G)");
             Console.SetCursorPosition(3, 27);
             Console.Write("숫자를 입력해주세요: ");
 
@@ -256,35 +256,52 @@ namespace TeamRPG
             }
             else if (input == 1)
             {
-                Console.Clear();
-                UI.DisplayGameUI();
-                Console.SetCursorPosition(3, 27);
-                Console.WriteLine("휴식을 취합니다..");
-                Console.SetCursorPosition(3, 12);
-                Console.Write($"Hp {player.CurrentHp}");
-                player.CurrentHp += 50;
-                
-                if (player.CurrentHp > player.Hp)
+                // -- 송명근 -- 골드 충분한지 확인
+                if (player.Gold < 500)
                 {
-                    player.CurrentHp = player.Hp;
+                    Console.SetCursorPosition(3, 10);
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("골드가 부족합니다!");
+                    Console.ResetColor();
+                    Console.SetCursorPosition(3, 12);
+                    Console.WriteLine("아무 키를 눌러 돌아가기");
+                    Console.ReadLine();
+                    GetRestInfo();
                 }
-                Console.WriteLine($" -> {player.CurrentHp}");
+                else
+                {
+                    Console.Clear();
+                    UI.DisplayGameUI();
+                    Console.SetCursorPosition(3, 27);
+                    Console.WriteLine("휴식을 취합니다..");
+                    Console.SetCursorPosition(3, 10);
+                    Console.Write($"Gold {player.Gold} -> {player.Gold -= 500}"); // 골드 회수
+                    Console.SetCursorPosition(3, 12);
+                    Console.Write($"Hp {player.CurrentHp}");
+                    player.CurrentHp += 50;
 
-                Console.SetCursorPosition(3, 14);
-                Console.Write($"Mp {player.CurrentMp}");
-                player.CurrentMp += 50;
-                if (player.CurrentMp > player.Mp)
-                {
-                    player.CurrentMp = player.Mp;
+                    if (player.CurrentHp > player.Hp)
+                    {
+                        player.CurrentHp = player.Hp;
+                    }
+                    Console.WriteLine($" -> {player.CurrentHp}");
+
+                    Console.SetCursorPosition(3, 14);
+                    Console.Write($"Mp {player.CurrentMp}");
+                    player.CurrentMp += 50;
+                    if (player.CurrentMp > player.Mp)
+                    {
+                        player.CurrentMp = player.Mp;
+                    }
+                    Console.WriteLine($" -> {player.CurrentMp}");
+                    Console.SetCursorPosition(3, 14);
+                    Thread.Sleep(500);
+                    Utility.SaveGameData();
+                    Console.SetCursorPosition(3, 27);
+                    Console.WriteLine("저장이 완료되었습니다.");
+                    Thread.Sleep(500);
+                    DisplayGameIntro();
                 }
-                Console.WriteLine($" -> {player.CurrentMp}");
-                Console.SetCursorPosition(3, 14);
-                Thread.Sleep(500);
-                Utility.SaveGameData();
-                Console.SetCursorPosition(3, 27);
-                Console.WriteLine("저장이 완료되었습니다.");
-                Thread.Sleep(500);
-                DisplayGameIntro();
             }
             else
             {
