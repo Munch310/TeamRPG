@@ -13,20 +13,20 @@ namespace TeamRPG
 {
     public class Monsters
     {
-        public static StringBuilder sb = new StringBuilder(); //빠른출력을 위해 사용
+        public static StringBuilder sb = new StringBuilder();
 
         public static List<CharacterBase> monstersList;
 
-        //==================전투===============================
         public Monsters()
         {
             monstersList = new List<CharacterBase>();
         }
 
-        public static List<CharacterBase> GetMonstersList() //다른클래스에서 몬스터클래스를 사용하기위한 반환값
+        public static List<CharacterBase> GetMonstersList()
         {
             return monstersList;
         }
+
         public static void sbClear()
         {
             Console.WriteLine(sb);
@@ -38,7 +38,7 @@ namespace TeamRPG
             monstersList.Add(_Monster);
         }
 
-        public static void FightInfo() //전투메서드
+        public static void FightInfo()
         {
             Console.Clear();
 
@@ -67,8 +67,8 @@ namespace TeamRPG
                     Console.WriteLine($"{monstersList[i].IsDead} \n");
                     Console.ResetColor();
                 }
-
             }
+
             Console.SetCursorPosition(3, 10);
             Console.WriteLine("[내 정보]");
 
@@ -81,26 +81,20 @@ namespace TeamRPG
             Console.SetCursorPosition(3, 16);
             sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
             sbClear();
-            // ---------- Song Mp 추가 ---------------
             Console.SetCursorPosition(3, 18);
             sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
-            // ---------- Song ---------------
             sbClear();
-
-
 
             Console.SetCursorPosition(2, 23);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(" [1] ");
             Console.ResetColor();
             Console.WriteLine("공격 ");
-            // ---------- Song 스킬추가 ---------------
             Console.SetCursorPosition(24, 23);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(" [2] ");
             Console.ResetColor();
             Console.WriteLine("스킬 ");
-            // ---------- Song ---------------
             Console.SetCursorPosition(48, 23);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(" [0] ");
@@ -117,7 +111,6 @@ namespace TeamRPG
                 Thread.Sleep(300);
                 BattleNormal();
             }
-            // ---------- Song 스킬 창 추가---------------
             else if (input == 2)
             {
                 Console.SetCursorPosition(3, 27);
@@ -125,7 +118,6 @@ namespace TeamRPG
                 Thread.Sleep(300);
                 BattleSkill();
             }
-            // ---------- Song ---------------
             else if (input == 0)
             {
                 Console.SetCursorPosition(3, 27);
@@ -143,7 +135,7 @@ namespace TeamRPG
             }
         }
 
-        public static void BattleNormal() // 스킬을 사용하지 않은 기본 공격
+        public static void BattleNormal()
         {
             Console.Clear();
             UI.DisplayGameUI();
@@ -175,7 +167,6 @@ namespace TeamRPG
                     Console.WriteLine($"{monstersList[i].IsDead} \n");
                     Console.ResetColor();
                 }
-
             }
 
             Console.SetCursorPosition(3, 10);
@@ -190,10 +181,8 @@ namespace TeamRPG
             Console.SetCursorPosition(3, 16);
             sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
             sbClear();
-            // ---------- Song Mp 추가 ---------------
             Console.SetCursorPosition(3, 18);
             sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
-            // ---------- Song ---------------
             sbClear();
 
             Console.SetCursorPosition(2, 23);
@@ -208,7 +197,6 @@ namespace TeamRPG
 
             if (input == 0)
             {
-                // 스킬 선택으로 마음을 바꿀수 있다 생각해서 수정했습니다. -문현우
                 Console.SetCursorPosition(3, 27);
                 Console.WriteLine("선택화면으로 돌아갑니다.");
                 Thread.Sleep(500);
@@ -226,8 +214,7 @@ namespace TeamRPG
             }
         }
 
-        // --------------------------------------------------------------------------
-        public static void PlayerPhase() // 플레이어 페이즈
+        public static void PlayerPhase()
         {
             if (CheckAllMonstersDefeated())
             {
@@ -237,11 +224,6 @@ namespace TeamRPG
                 Console.WriteLine("[결과]");
                 Console.SetCursorPosition(35, 6);
                 Console.WriteLine("Victory!");
-
-                // -----김형수-----
-
-                //saveCurrentHp = MainProgram.player.CurrentHp;
-                //MainProgram.player.CurrentHp -= monsDmg;
 
                 int previousLv = MainProgram.player.Lv;
                 int previousHp = MainProgram.player.Hp;
@@ -256,7 +238,6 @@ namespace TeamRPG
                     totalMonstersExp += monstersList[i].Lv;
                 }
                 
-                // exp 및 골드 수급
                 MainProgram.player.GetExp(totalMonstersExp);
                 MainProgram.player.Gold = MainProgram.player.Gold + totalMonstersGold;
 
@@ -283,10 +264,6 @@ namespace TeamRPG
                 Console.WriteLine();
                 Console.WriteLine();
 
-
-
-                //----------
-
                 Console.SetCursorPosition(3, 27);
                 Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오");
                 Console.ReadLine();
@@ -302,17 +279,13 @@ namespace TeamRPG
                 Console.Write("아무키를 눌러 적 차례로 진입하십시오");
                 Console.ReadKey();
                 EnemyPhase();
-
             }
         }
 
-        // 플레이어 공격 메서드 구현
         public static void PlayerAttack(int selected, int damage)
         {
             Console.Clear();
             UI.DisplayGameUI();
-
-            //Console.SetCursorPosition(35, 2);
 
             Console.BackgroundColor = ConsoleColor.White;
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -322,8 +295,6 @@ namespace TeamRPG
 
             if (monstersList[selected - 1].CurrentHp > 0)
             {
-                // 치명타 기능
-                // --송명근 UI 부분 추가--
                 bool isCrit = false;
                 int space = 0;
                 Random rand = new Random();
@@ -335,7 +306,6 @@ namespace TeamRPG
                     space = 2;
                 }
 
-                // 회피할 경우 공격 스킵
                 if (criticalEvasionCheck > 17)
                 {
                     Console.SetCursorPosition(3, 10);
@@ -368,7 +338,7 @@ namespace TeamRPG
                     Console.WriteLine($"[데미지 : {damage} ]");
                     Console.SetCursorPosition(3, 13 + space);
                     Console.WriteLine($"Lv.{monstersList[selected - 1].Lv} {monstersList[selected - 1].Name}\n");
-                    //Console.Clear();
+
                     if (monstersList[selected - 1].CurrentHp - damage <= 0)
                     {
                         Console.SetCursorPosition(3, 15 + space);
@@ -381,14 +351,12 @@ namespace TeamRPG
                         Console.WriteLine($"{monstersList[selected - 1].CurrentHp} -> {monstersList[selected - 1].CurrentHp -= damage}");
                     }
                 }
-                // --송명근 -- 화면이 바로 전환되지 않고 적에게 준 피해 화면 표시 후 다음 화면 전환
                 Console.SetCursorPosition(3, 27);
                 Console.WriteLine("아무키를 눌러 다음화면으로 가십시오.");
                 Console.ReadLine();
             }
             else
             {
-                // 이미 죽은 적을 선택 했으므로, 다른 적을 선택하게 선택 화면으로 돌아갑니다. - 문현우
                 Console.SetCursorPosition(3, 27);
                 Console.WriteLine("이미 죽은 적입니다. 다른 적을 선택하세요.");
                 Thread.Sleep(500);
@@ -396,8 +364,7 @@ namespace TeamRPG
             }
         }
 
-        // --- Song 스킬을 이용한 전투 추가 ---
-        public static void BattleSkill() // 스킬을 사용하여 전투
+        public static void BattleSkill()
         {
             Console.Clear();
             UI.DisplayGameUI();
@@ -430,7 +397,6 @@ namespace TeamRPG
                     Console.WriteLine($"{monstersList[i].IsDead} \n");
                     Console.ResetColor();
                 }
-
             }
 
             Console.SetCursorPosition(3, 10);
@@ -445,10 +411,8 @@ namespace TeamRPG
             Console.SetCursorPosition(3, 16);
             sb.Append($"HP {MainProgram.player.CurrentHp} / {MainProgram.player.Hp}");
             sbClear();
-            // ---------- Song Mp 추가 ---------------
             Console.SetCursorPosition(3, 18);
             sb.Append($"MP {MainProgram.player.CurrentMp} / {MainProgram.player.Mp}");
-            // ---------- Song ---------------
             sbClear();
 
             Console.SetCursorPosition(1, 22);
@@ -480,7 +444,6 @@ namespace TeamRPG
             }
             else if (1 <= input && input <= MainProgram.player.skills.Count)
             {
-                // 스킬 사용 후
                 PlayerSkill(input);
                 PlayerPhase();
             }
@@ -493,7 +456,6 @@ namespace TeamRPG
             }
         }
 
-        // 스킬 실행 메서드
         public static void PlayerSkill(int selected)
         {
             if (MainProgram.player.CurrentMp < MainProgram.player.skills[selected - 1].MpConsume)
@@ -510,7 +472,7 @@ namespace TeamRPG
                 Console.SetCursorPosition(3, 27);
                 Console.WriteLine("알파 스트라이크를 시전할 대상을 선택해주세요");
                 SelectMonster(MainProgram.player.Atk * 2);
-                // 마나 소모
+
                 MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
             }
             else if (MainProgram.player.skills[selected - 1].Name == "더블 스트라이크")
@@ -539,14 +501,14 @@ namespace TeamRPG
                     Random rand = new Random();
                     int firstTarget = rand.Next(1, temp.Count);
                     int secondTarget = rand.Next(1, temp.Count - 1);
-                    if (firstTarget <= secondTarget) // 중복 제거
+                    if (firstTarget <= secondTarget)
                     {
                         secondTarget += 1;
                     }
                     PlayerAttack(temp[firstTarget - 1] + 1, MainProgram.player.Atk);
                     PlayerAttack(temp[secondTarget - 1] + 1, MainProgram.player.Atk);
                 }
-                // 마나 소모
+
                 MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
             }
             else if (MainProgram.player.skills[selected - 1].Name == "썬더 볼트")
@@ -560,7 +522,7 @@ namespace TeamRPG
                         PlayerAttack(i + 1, MainProgram.player.Atk);
                     }
                 }
-                // 마나 소모
+
                 MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
             }
             else if (MainProgram.player.skills[selected - 1].Name == "힐")
@@ -577,21 +539,19 @@ namespace TeamRPG
                     MainProgram.player.CurrentHp = MainProgram.player.Hp;
                 }
                 Console.WriteLine($" -> {MainProgram.player.CurrentHp}");
-                // 마나 소모
+
                 MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
                 Thread.Sleep(500);
             }
         }
 
-        public static void EnemyPhase() //적 공격패턴
+        public static void EnemyPhase()
         {
-
-
             if (MainProgram.player.CurrentHp > 0)
             {
                 for (int i = 0; i < monstersList.Count; i++)
                 {
-                    int saveCurrentHp = 0; // 플레이어 currentHp를 저장하기 위한 변수
+                    int saveCurrentHp = 0;
                     if (monstersList[i].CurrentHp <= 0)
                     {
                         continue;
@@ -641,7 +601,6 @@ namespace TeamRPG
                         Console.ResetColor();
                         Console.ReadLine();
                         Environment.Exit(0);
-                        //캐릭터생성부로 돌아가는 함수();
                     }
                     else
                     {
@@ -653,8 +612,6 @@ namespace TeamRPG
                         Console.ReadKey();
                         Console.Clear();
                     }
-
-
                 }
                 Console.Clear();
                 UI.DisplayGameUI();
@@ -666,11 +623,10 @@ namespace TeamRPG
                 Console.ResetColor();
                 Console.ReadKey();
                 FightInfo();
-
             }
         }
 
-        public static bool CheckAllMonstersDefeated() //몬스터가 모두 죽었는지 판별하는 함수
+        public static bool CheckAllMonstersDefeated()
         {
             foreach (CharacterBase monster in monstersList)
             {
@@ -699,5 +655,4 @@ namespace TeamRPG
             }
         }
     }
-    //-----------------------------------------------------
 }
