@@ -255,13 +255,10 @@ namespace TeamRPG
                 {
                     totalMonstersExp += monstersList[i].Lv;
                 }
-
+                
+                // exp 및 골드 수급
                 MainProgram.player.GetExp(totalMonstersExp);
-
-                int currentLv = MainProgram.player.Lv;
-                int currentHp = MainProgram.player.CurrentHp;
-                int currentExp = MainProgram.player.Exp + totalMonstersExp;
-                int currentGold = MainProgram.player.Gold + totalMonstersGold;
+                MainProgram.player.Gold = MainProgram.player.Gold + totalMonstersGold;
 
                 int cursorPositionX = 6;
                 int cursorPositionY = 7;
@@ -273,20 +270,21 @@ namespace TeamRPG
                 Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
                 Console.WriteLine($"{MainProgram.player.Name}");
                 Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
-                Console.WriteLine($"Lv.{previousLv} -> Lv.{currentLv}");
+                Console.WriteLine($"Lv.{previousLv} -> Lv.{MainProgram.player.Lv}");
                 Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
-                Console.WriteLine($"HP {previousHp} -> {currentHp} ");
+                Console.WriteLine($"HP {previousHp} -> {MainProgram.player.CurrentHp} ");
                 Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
-                Console.WriteLine($"exp {previousExp} -> {currentExp} ");
+                Console.WriteLine($"exp {previousExp} -> {MainProgram.player.Exp} ");
                 Console.SetCursorPosition(cursorPositionX, cursorPositionY += 2); ;
                 Console.WriteLine("[획득 아이템]");
                 Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
-                Console.WriteLine($"{previousGold} -> {currentGold} Gold");
+                Console.WriteLine($"{previousGold} -> {MainProgram.player.Gold} Gold");
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
 
-                MainProgram.player.Gold = currentGold;
+
+
                 //----------
 
                 Console.SetCursorPosition(3, 27);
