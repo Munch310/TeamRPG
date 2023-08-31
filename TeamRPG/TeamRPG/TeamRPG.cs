@@ -259,6 +259,7 @@ namespace TeamRPG
                 // -- 송명근 -- 골드 충분한지 확인
                 if (player.Gold < 500)
                 {
+                    Console.Clear();
                     Console.SetCursorPosition(3, 10);
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("골드가 부족합니다!");
