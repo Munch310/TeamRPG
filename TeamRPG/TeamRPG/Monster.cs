@@ -579,6 +579,7 @@ namespace TeamRPG
                 Console.WriteLine($" -> {MainProgram.player.CurrentHp}");
                 // 마나 소모
                 MainProgram.player.CurrentMp -= MainProgram.player.skills[selected - 1].MpConsume;
+                Thread.Sleep(500);
             }
         }
 
