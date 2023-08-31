@@ -78,6 +78,7 @@ namespace TeamRPG
             CurrentMp = mp;
             Mp = mp;
             skills = new List<Skill> { };
+            needExp = 10;
         }
         public void AddSkill(Skill skill)
         {
