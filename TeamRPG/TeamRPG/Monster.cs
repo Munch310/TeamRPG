@@ -222,36 +222,51 @@ namespace TeamRPG
                 Console.WriteLine("[결과]");
                 Console.SetCursorPosition(30, 6);
                 Console.WriteLine("Victory!");
-                // ----- 김형수 -----
 
-                int CursorPositionX = 24;
-                int CursorPositionY = 6;
+                // -----김형수-----
 
-                Console.SetCursorPosition(CursorPositionX, CursorPositionY);
-                Console.WriteLine($"던전에서 몬스터 {monstersList.Count}마리를 잡았습니다.");
+                //saveCurrentHp = MainProgram.player.CurrentHp;
+                //MainProgram.player.CurrentHp -= monsDmg;
+
+                int previousLv = MainProgram.player.Lv;
+                int previousHp = MainProgram.player.Hp;
+                int previousExp = MainProgram.player.Exp;
+
+                int totalMonstersExp = 0;
+
+                for (int i = 0; i < monstersList.Count; i++)
+                {
+                    totalMonstersExp += monstersList[i].Lv;
+                }
+
+                MainProgram.player.GetExp(totalMonstersExp);
+
+                int currentLv = MainProgram.player.Lv;
+                int currentHp = MainProgram.player.CurrentHp;
+                int currentExp = MainProgram.player.Exp + totalMonstersExp;
+
+                int CursorPositionX = 6;
+                int CursorPositionY = 7;
+
                 Console.SetCursorPosition(CursorPositionX, CursorPositionY += 2);
-                Console.WriteLine();
+                Console.WriteLine($"던전에서 몬스터 {monstersList.Count}마리를 잡았습니다.");
                 Console.SetCursorPosition(CursorPositionX, CursorPositionY += 2);
                 Console.WriteLine("[캐릭터 정보]");
                 Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
-                Console.WriteLine($"Lv. {MainProgram.player.Name} -> Lv. {MainProgram.player.Name}");
+                Console.WriteLine($"Lv.{previousLv} {MainProgram.player.Name} -> Lv.{currentLv} {MainProgram.player.Name}");
                 Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
-                Console.WriteLine($"HP -> ");
+                Console.WriteLine($"HP {previousHp} -> {currentHp} ");
                 Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
-                Console.WriteLine($"exp -> ");
-                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
-                Console.WriteLine();
-                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 2);
+                Console.WriteLine("exp"); /*Console.WriteLine($"exp {previousExp} -> {currentExp} ");*/
+                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 2); ;
                 Console.WriteLine("[획득 아이템]");
                 Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
-                Console.WriteLine($" Gold");
-                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
+                Console.WriteLine($"{MainProgram.player.Gold} Gold");
                 Console.WriteLine();
-                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
                 Console.WriteLine();
-                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
+                Console.WriteLine();
+                //----------
 
-                // -----
                 Console.SetCursorPosition(3, 27);
                 Console.WriteLine("아무키를 눌러 메인화면으로 되돌아 가십시오");
                 Console.ReadLine();
