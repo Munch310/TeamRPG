@@ -282,7 +282,7 @@ namespace TeamRPG
             Console.SetCursorPosition(15, 9);
             Console.Write($"({player.Job})");
             Console.SetCursorPosition(6, 11);
-            Console.WriteLine($"공격력 :{player.Atk}");
+            Console.WriteLine($"공격력 : {player.Atk}");
             Console.SetCursorPosition(6, 13);
             Console.WriteLine($"방어력 : {player.Def}");
             Console.SetCursorPosition(6, 15);
