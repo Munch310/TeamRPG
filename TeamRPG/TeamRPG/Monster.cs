@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
@@ -312,8 +313,15 @@ namespace TeamRPG
         {
             Console.Clear();
             UI.DisplayGameUI();
-            Console.SetCursorPosition(35, 2);
-            Console.WriteLine("[공격]");
+
+            //Console.SetCursorPosition(35, 2);
+
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.SetCursorPosition(32, 2);
+            Console.Write("[ 플레이어 턴 ]");
+            Console.ResetColor();
+
             if (monstersList[selected - 1].CurrentHp > 0)
             {
                 // 치명타 기능
@@ -347,7 +355,14 @@ namespace TeamRPG
                         Console.ResetColor();
                     }
                     Console.SetCursorPosition(3, 7 + space);
-                    Console.WriteLine($"{MainProgram.player.Name} 의 공격!\n");
+
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.WriteLine($" {MainProgram.player.Name} ");
+                    Console.ResetColor();
+                    Console.SetCursorPosition(12, 7 + space);
+                    Console.Write($"의 공격!\n");
+
                     Console.SetCursorPosition(3, 9 + space);
                     Console.WriteLine($"Lv.{monstersList[selected - 1].Lv} ");
                     Console.SetCursorPosition(3, 11 + space);
@@ -388,8 +403,10 @@ namespace TeamRPG
         {
             Console.Clear();
             UI.DisplayGameUI();
+
             Console.SetCursorPosition(35, 2);
-            Console.WriteLine("[스킬]");
+            Console.Write("[ 스킬 ]");
+            Console.ResetColor();
 
             for (int i = 0; i < monstersList.Count; i++)
             {
@@ -570,12 +587,6 @@ namespace TeamRPG
         public static void EnemyPhase() //적 공격패턴
         {
 
-            Console.Clear();
-            UI.DisplayGameUI();
-            Console.SetCursorPosition(35, 2);
-            Console.WriteLine("[몬스터 턴]");
-
-
 
             if (MainProgram.player.CurrentHp > 0)
             {
@@ -590,15 +601,22 @@ namespace TeamRPG
                     UI.DisplayGameUI();
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.SetCursorPosition(35, 2);
+                    Console.SetCursorPosition(32, 2);
                     Console.Write("[ 몬스터 턴 ]");
                     Console.ResetColor();
 
                     int monsDmg = CharacterBase.CalculateDamage(monstersList[i].Atk);
                     Console.SetCursorPosition(3, 9);
                     Console.WriteLine($"Lv.{monstersList[i].Lv} ");
+
                     Console.SetCursorPosition(3, 11);
-                    Console.WriteLine($"{monstersList[i].Name} 의 공격\n\n");
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.WriteLine($" {monstersList[i].Name} ");
+                    Console.ResetColor();
+                    Console.SetCursorPosition(15, 11);
+                    Console.Write($"의 공격!\n");
+
                     Console.SetCursorPosition(3, 13);
                     Console.WriteLine($"{MainProgram.player.Name}을 맞췄습니다. [데미지 : {monsDmg}]");
                     Console.SetCursorPosition(3, 15);
