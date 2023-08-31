@@ -235,7 +235,7 @@ namespace TeamRPG
                 UI.DisplayGameUI();
                 Console.SetCursorPosition(35, 2);
                 Console.WriteLine("[결과]");
-                Console.SetCursorPosition(30, 6);
+                Console.SetCursorPosition(35, 6);
                 Console.WriteLine("Victory!");
 
                 // -----김형수-----
