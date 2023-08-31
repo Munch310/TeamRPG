@@ -224,7 +224,32 @@ namespace TeamRPG
                 Console.WriteLine("Victory!");
                 // ----- 김형수 -----
 
-                Console.WriteLine($"던전에서 몬스터 n마리를 잡았습니다.");
+                int CursorPositionX = 24;
+                int CursorPositionY = 6;
+
+                Console.SetCursorPosition(CursorPositionX, CursorPositionY);
+                Console.WriteLine($"던전에서 몬스터 {monstersList.Count}마리를 잡았습니다.");
+                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 2);
+                Console.WriteLine();
+                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 2);
+                Console.WriteLine("[캐릭터 정보]");
+                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
+                Console.WriteLine($"Lv. {MainProgram.player.Name} -> Lv. {MainProgram.player.Name}");
+                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
+                Console.WriteLine($"HP -> ");
+                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
+                Console.WriteLine($"exp -> ");
+                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
+                Console.WriteLine();
+                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 2);
+                Console.WriteLine("[획득 아이템]");
+                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
+                Console.WriteLine($" Gold");
+                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
+                Console.WriteLine();
+                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
+                Console.WriteLine();
+                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
 
                 // -----
                 Console.SetCursorPosition(3, 27);
