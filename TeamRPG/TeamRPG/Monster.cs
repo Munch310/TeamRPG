@@ -231,8 +231,10 @@ namespace TeamRPG
                 int previousLv = MainProgram.player.Lv;
                 int previousHp = MainProgram.player.Hp;
                 int previousExp = MainProgram.player.Exp;
+                int previousGold = MainProgram.player.Gold;
 
                 int totalMonstersExp = 0;
+                int totalMonstersGold = monstersList.Count * 100;
 
                 for (int i = 0; i < monstersList.Count; i++)
                 {
@@ -244,27 +246,32 @@ namespace TeamRPG
                 int currentLv = MainProgram.player.Lv;
                 int currentHp = MainProgram.player.CurrentHp;
                 int currentExp = MainProgram.player.Exp + totalMonstersExp;
+                int currentGold = MainProgram.player.Gold + totalMonstersGold;
 
-                int CursorPositionX = 6;
-                int CursorPositionY = 7;
+                int cursorPositionX = 6;
+                int cursorPositionY = 7;
 
-                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 2);
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 2);
                 Console.WriteLine($"던전에서 몬스터 {monstersList.Count}마리를 잡았습니다.");
-                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 2);
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 2);
                 Console.WriteLine("[캐릭터 정보]");
-                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
-                Console.WriteLine($"Lv.{previousLv} {MainProgram.player.Name} -> Lv.{currentLv} {MainProgram.player.Name}");
-                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
+                Console.WriteLine($"{MainProgram.player.Name}");
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
+                Console.WriteLine($"Lv.{previousLv} -> Lv.{currentLv}");
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
                 Console.WriteLine($"HP {previousHp} -> {currentHp} ");
-                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
                 Console.WriteLine($"exp {previousExp} -> {currentExp} ");
-                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 2); ;
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 2); ;
                 Console.WriteLine("[획득 아이템]");
-                Console.SetCursorPosition(CursorPositionX, CursorPositionY += 1);
-                Console.WriteLine($"{MainProgram.player.Gold} Gold");
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY += 1);
+                Console.WriteLine($"{previousGold} -> {currentGold} Gold");
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
+
+                MainProgram.player.Gold = currentGold;
                 //----------
 
                 Console.SetCursorPosition(3, 27);
