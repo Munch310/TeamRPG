@@ -28,8 +28,7 @@ C# Text TEAM RPG GAME
 - 메인 화면
 
 #### 캐릭터- <a href="https://github.com/Munch310/SpartaDungeon/wiki/3.-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C-(%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4-%EC%A0%95%EB%B3%B4)" >상세보기 - WIKI 이동</a>
-- 플레이어
-- 몬스터
+- 플레이어 & 몬스터
 
 #### 던전 - <a href="https://github.com/Munch310/SpartaDungeon/wiki/6.-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C-(%EB%8D%98%EC%A0%84)" >상세보기 - WIKI 이동</a>
 - 플레이어 턴
