@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
+using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-//using System.Diagnostics;
-//using System.Reflection;
 using TeamRPG;
 
 namespace TeamRPG
@@ -18,31 +19,59 @@ namespace TeamRPG
                 string input = Console.ReadLine();
                 try
                 {
-                    // ------문현우 try catch----------
-                    // 입력된 문자열을 정수로 변환 -> t, 정수 값 -> ret
-                    // 실패 -> f , FormatException 발생.
                     bool parseSuccess = int.TryParse(input, out var ret);
                     if (!parseSuccess)
                     {
-
                         Console.SetCursorPosition(3, 27);
-                        Console.WriteLine("숫자를 입력해주세요:         "); // 오류 메시지 표시 후 공백 문자로 덮어쓰기
+                        Console.WriteLine("숫자를 입력해주세요:                           ");
                         Console.SetCursorPosition(24, 27);
-                        continue; // 다시 입력 받기 위해 반복문 처음으로 돌아감
+                        continue;
                     }
                     return ret;
                 }
                 catch (FormatException ex)
                 {
-                    // 현재 메서드를 불러오려 했으나, CheckValidInput 호출.
-                    // string currentMethod = MethodBase.GetCurrentMethod().Name;
-                    // Console.WriteLine(currentMethod);
-
-                    // try에서 발생한 오류를 catch 블록에서 처리.
-
                     Console.WriteLine(ex.Message);
                     continue;
                 }
+            }
+        }
+
+        public static void SaveGameData()
+        {
+            string fileName = "_playerData.json";
+
+            string userDocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            string filePath = Path.Combine(userDocumentsFolder, fileName);
+
+            var options = new JsonSerializerOptions { WriteIndented = true };
+
+            string playersData = JsonSerializer.Serialize(MainProgram.player, options);
+
+            playersData = Regex.Unescape(playersData);
+
+            File.WriteAllText(filePath, playersData);
+        }
+
+        public static void LoadGameData()
+        {
+            string fimeName = "_playerData.json";
+            string userDocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string filePath = Path.Combine(userDocumentsFolder, fimeName);
+            if(File.Exists(filePath))
+            {
+                MainProgram.isCreate = true;
+                string playerJson = File.ReadAllText(filePath);
+                playerJson = Regex.Unescape(playerJson);
+                Character loadedCharacter = JsonSerializer.Deserialize<Character>(playerJson);
+                MainProgram.player = loadedCharacter;
+            }
+            else
+            {
+                Console.WriteLine("데이터가 없습니다.");
+                Thread.Sleep(500);
+                MainProgram.GameDataSetting();
             }
         }
     }
