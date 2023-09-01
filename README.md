@@ -1,6 +1,9 @@
 # TEAM RPG 
 C# Text TEAM RPG GAME
 
+## 🎇 WireFrame
+![와이어프레임](https://github.com/Munch310/TeamRPG/assets/84183932/8edd8cd2-a3ee-4c26-99dd-1dd99904bb6c)
+
 
 ## 🖥️ Project Introduction
 스파르타 코딩클럽 내일배움캠프 C# 팀 과제 입니다.<br>
